@@ -1,0 +1,6 @@
+ecdsa==0.13
+two1==3.10.9
+base58==0.2.2
+pysha3==1.0.2
+mnemonic==0.13
+eth_keyfile==0.5.1
