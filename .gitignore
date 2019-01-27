@@ -1,0 +1,12 @@
+/.idea
+
+# Setuptools stuff
+build/
+dist/
+cobra_hdwallet.egg-info/
+
+# Python stuff
+__pycache__/
+
+# py.test stuff
+.pytest_cache/
