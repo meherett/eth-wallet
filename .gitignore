@@ -3,7 +3,7 @@
 # Setuptools stuff
 build/
 dist/
-cobra_hdwallet.egg-info/
+bip32key.egg-info/
 
 # Python stuff
 __pycache__/
