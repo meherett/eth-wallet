@@ -262,6 +262,26 @@ class BIP32KEY:
         else:
             return check_encode(raw)
 
+    def print(self):
+        hdwallet = {
+            "coin": "ETH",
+            "name": "Ethereum",
+            "address": "",
+            "mnemonic": "",
+            "wif": "",
+            "finger_print": "",
+            "chain_code": "",
+            "private_key": "",
+            "public_key": "",
+            "uncompressed_public_key": "",
+            "serialized": {
+                "private_key_hex": "",
+                "public_key_hex": "",
+                "xprivate_key_base58": "",
+                "xpublic_key_base58": "",
+            }
+        }
+
 
 
 master_key = BIP32KEY.fromEntropy(binascii.hexlify(b"Meheret Tesfaye Batu"))
@@ -277,18 +297,3 @@ print(master_key.Fingerprint().hex())
 print(master_key.ChainCode())
 print(master_key.PrivateKey().hex())
 print(master_key.PublicKey().hex())
-
-# self.hdwallet["address"] = master_key.Address()
-# self.hdwallet["mnemonic"] = mnemonic
-# self.hdwallet["wif"] = master_key.WalletImportFormat()
-# self.hdwallet["finger_print"] = master_key.Fingerprint().hex()
-# self.hdwallet["chain_code"] = master_key.chain.hex()
-# self.hdwallet["private_key"] = master_key.PrivateKey().hex()
-# self.hdwallet["public_key"] = master_key.PublicKey().hex()
-# self.hdwallet["uncompressed_public_key"] = master_key.UncompressedPublicKey().hex()
-# self.hdwallet["serialized"]["private_key_hex"] = master_key.ExtendedKey(private=True, encoded=False).hex()
-# self.hdwallet["serialized"]["public_key_hex"] = master_key.ExtendedKey(private=False, encoded=False).hex()
-# self.hdwallet["serialized"]["xprivate_key_base58"] = master_key.ExtendedKey(private=True, encoded=True)
-# self.hdwallet["serialized"]["xpublic_key_base58"] = master_key.ExtendedKey(private=False, encoded=True)
-
-# return self.hdwallet
