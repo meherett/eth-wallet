@@ -185,7 +185,7 @@ class BIP32KEY:
     def fromIndex(self, index):
         if not str(index)[0:2] != 'm/':
             raise ValueError("Bad path, please insert only index int!")
-        return self.DerivePrivateKey(int(index))
+        return self.derivePrivateKey(int(index))
 
     def privateKey(self):
         return self.key.to_string()
