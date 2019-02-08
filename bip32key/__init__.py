@@ -220,7 +220,7 @@ class BIP32KEY:
         return self.chain.hex()
 
     def identifier(self, private=None):
-        cK = self.PublicKey(private)
+        cK = self.publicKey(private)
         return hashlib.new('ripemd160', sha256(cK).digest()).digest()
 
     def fingerPrint(self, private=None):
