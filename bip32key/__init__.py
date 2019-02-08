@@ -190,7 +190,7 @@ class BIP32KEY:
     def PrivateKey(self):
         return self.key.to_string()
 
-    def PublicKey(self, private=None):
+    def publicKey(self, private=None):
         if private:
             private = binascii.unhexlify(private)
             key = ecdsa.SigningKey.from_string(bytes(private), curve=SECP256k1)
