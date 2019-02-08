@@ -133,7 +133,7 @@ class BIP32KEY:
         self.verifiedKey = self.key.get_verifying_key()
 
     @staticmethod
-    def from_entropy(entropy):
+    def fromEntropy(entropy):
 
         I = hmac.new(b"Bitcoin seed", get_bytes(entropy), hashlib.sha512).digest()
         Il, Ir = I[:32], I[32:]
@@ -272,7 +272,7 @@ class BIP32KEY_EXAMPLE:
 
     def example(self, mnemonic=None):
 
-        master_key = BIP32KEY.from_entropy(mnemonic)
+        master_key = BIP32KEY.fromEntropy(mnemonic)
         master_key = master_key.fromIndex(44 + 0x80000000)
         master_key = master_key.fromIndex(60 + 0x80000000)
         master_key = master_key.fromIndex(0 + 0x80000000)
