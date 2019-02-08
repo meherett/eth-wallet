@@ -147,7 +147,7 @@ class BIP32KEY:
         I = hmac.new(self.chain, data, hashlib.sha512).digest()
         return I[:32], I[32:]
 
-    def DerivePrivateKey(self, index):
+    def derivePrivateKey(self, index):
 
         i_str = struct.pack(">L", index)
         if index & BIP32_HARDEN:
