@@ -168,7 +168,7 @@ class BIP32KEY:
         return BIP32KEY(
             secret=secret, chain=Ir,
             depth=self.depth + 1, index=index,
-            fingerprint=self.Fingerprint())
+            fingerprint=self.fingerPrint())
 
     def fromPath(self, path):
         derivePrivateKey = self
@@ -223,7 +223,7 @@ class BIP32KEY:
         cK = self.PublicKey(private)
         return hashlib.new('ripemd160', sha256(cK).digest()).digest()
 
-    def Fingerprint(self, private=None):
+    def fingerPrint(self, private=None):
         return self.Identifier(private)[:4]
 
     def address(self, private=None):
@@ -265,7 +265,7 @@ class BIP32KEY:
     def print(self):
 
         wallet = {"address": master_key.Address(),
-                  "wif": master_key.WalletImportFormat(), "finger_print": master_key.Fingerprint().hex(),
+                  "wif": master_key.WalletImportFormat(), "finger_print": master_key.fingerPrint().hex(),
                   "chain_code": master_key.chain.hex(), "private_key": master_key.PrivateKey().hex(),
                   "public_key": master_key.PublicKey().hex(),
                   "uncompressed_public_key": master_key.UncompressedPublicKey().hex(), "serialized": {
@@ -295,7 +295,7 @@ print(master_key.print())
 
 # print(master_key.Address())
 # print(master_key.WalletImportFormat())
-# print(master_key.Fingerprint().hex())
+# print(master_key.fingerPrint().hex())
 # print(master_key.ChainCode())
 # print(master_key.PrivateKey().hex())
 # print(master_key.PublicKey().hex())
