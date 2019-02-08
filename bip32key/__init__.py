@@ -188,7 +188,7 @@ class BIP32KEY:
         return self.DerivePrivateKey(int(index))
 
     def PrivateKey(self):
-        return self.key.to_string()
+        return self.key.to_string().hex()
 
     def PublicKey(self, private=None):
         if private:
