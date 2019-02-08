@@ -84,7 +84,7 @@ def encode(data):
 
 def check_encode(raw):
     chk = sha256(sha256(raw).digest()).digest()[:4]
-    return encode(raw + chk).hex()
+    return encode(raw + chk)
 
 
 def decode(data):
@@ -188,7 +188,7 @@ class BIP32KEY:
         return self.DerivePrivateKey(int(index))
 
     def PrivateKey(self):
-        return self.key.to_string().hex()
+        return self.key.to_string()
 
     def PublicKey(self, private=None):
         if private:
@@ -200,7 +200,7 @@ class BIP32KEY:
                 ck = b'\3' + padx
             else:
                 ck = b'\2' + padx
-            return ck.hex()
+            return ck
         padx = (b'\0' * 32 + int_to_string(self.verifiedKey.pubkey.point.x()))[-32:]
         if self.verifiedKey.pubkey.point.y() & 1:
             ck = b'\3' + padx
@@ -214,7 +214,7 @@ class BIP32KEY:
             key = ecdsa.SigningKey.from_string(bytes(private), curve=SECP256k1)
             verifiedKey = key.get_verifying_key()
             return verifiedKey.to_string()
-        return self.verifiedKey.to_string().hex()
+        return self.verifiedKey.to_string()
 
     def ChainCode(self):
         return self.chain.hex()
@@ -258,9 +258,10 @@ class BIP32KEY:
         data = b'\x00' + self.PrivateKey()
         raw = version + depth + fingerprint + child + chain + data
         if not encoded:
-            return raw.hex()
+            return raw
         else:
             return check_encode(raw)
+
 
 
 master_key = BIP32KEY.fromEntropy(binascii.hexlify(b"Meheret Tesfaye Batu"))
@@ -272,11 +273,10 @@ master_key = master_key.fromIndex(0)
 
 print(master_key.Address())
 print(master_key.WalletImportFormat())
-print(master_key.Fingerprint())
+print(master_key.Fingerprint().hex())
 print(master_key.ChainCode())
-print(master_key.PrivateKey())
-print(master_key.PublicKey())
-print(master_key.chain.hex())
+print(master_key.PrivateKey().hex())
+print(master_key.PublicKey().hex())
 
 # self.hdwallet["address"] = master_key.Address()
 # self.hdwallet["mnemonic"] = mnemonic
