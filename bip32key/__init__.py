@@ -284,15 +284,18 @@ class BIP32KEY:
 
 
 master_key = BIP32KEY.fromEntropy(binascii.hexlify(b"Meheret Tesfaye Batu"))
+
 master_key = master_key.fromIndex(44 + 0x80000000)
 master_key = master_key.fromIndex(60 + 0x80000000)
 master_key = master_key.fromIndex(0 + 0x80000000)
 master_key = master_key.fromIndex(0)
 master_key = master_key.fromIndex(0)
 
-print(master_key.Address())
-print(master_key.WalletImportFormat())
-print(master_key.Fingerprint().hex())
-print(master_key.ChainCode())
-print(master_key.PrivateKey().hex())
-print(master_key.PublicKey().hex())
+print(master_key.print())
+
+# print(master_key.Address())
+# print(master_key.WalletImportFormat())
+# print(master_key.Fingerprint().hex())
+# print(master_key.ChainCode())
+# print(master_key.PrivateKey().hex())
+# print(master_key.PublicKey().hex())
