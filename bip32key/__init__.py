@@ -239,7 +239,7 @@ class BIP32KEY:
         address = keccak_256.hexdigest()[24:]
         return checksum_encode(address)
 
-    def WalletImportFormat(self, private=None):
+    def walletImportFormat(self, private=None):
         if private:
             private = binascii.unhexlify(private)
             key = ecdsa.SigningKey.from_string(private, curve=SECP256k1)
