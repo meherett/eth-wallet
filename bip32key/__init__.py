@@ -208,7 +208,7 @@ class BIP32KEY:
             ck = b'\2' + padx
         return ck
 
-    def UncompressedPublicKey(self, private=None):
+    def uncompressedPublicKey(self, private=None):
         if private:
             private = binascii.unhexlify(private)
             key = ecdsa.SigningKey.from_string(bytes(private), curve=SECP256k1)
