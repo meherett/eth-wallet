@@ -219,7 +219,7 @@ class BIP32KEY:
     def ChainCode(self):
         return self.chain.hex()
 
-    def Identifier(self, private=None):
+    def identifier(self, private=None):
         cK = self.PublicKey(private)
         return hashlib.new('ripemd160', sha256(cK).digest()).digest()
 
