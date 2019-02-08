@@ -224,7 +224,7 @@ class BIP32KEY:
         return hashlib.new('ripemd160', sha256(cK).digest()).digest()
 
     def Fingerprint(self, private=None):
-        return self.Identifier(private)[:4]
+        return self.Identifier(private)[:4].hex()
 
     def Address(self, private=None):
         keccak_256 = sha3.keccak_256()
@@ -272,10 +272,10 @@ master_key = master_key.fromIndex(0)
 
 print(master_key.Address())
 print(master_key.WalletImportFormat())
-print(master_key.Fingerprint().hex())
+print(master_key.Fingerprint())
 print(master_key.ChainCode())
-print(master_key.PrivateKey().hex())
-print(master_key.PublicKey().hex())
+print(master_key.PrivateKey())
+print(master_key.PublicKey())
 print(master_key.chain.hex())
 
 # self.hdwallet["address"] = master_key.Address()
