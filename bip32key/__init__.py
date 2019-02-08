@@ -271,7 +271,6 @@ master_key = master_key.fromIndex(0)
 master_key = master_key.fromIndex(0)
 
 
-
 # self.hdwallet["address"] = master_key.Address()
 # self.hdwallet["mnemonic"] = mnemonic
 # self.hdwallet["wif"] = master_key.WalletImportFormat()
