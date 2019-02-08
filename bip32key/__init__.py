@@ -263,17 +263,16 @@ class BIP32KEY:
             return check_encode(raw)
 
     def print(self):
-
-        wallet = {"address": master_key.Address(),
-                  "wif": master_key.WalletImportFormat(), "finger_print": master_key.fingerPrint().hex(),
-                  "chain_code": master_key.chain.hex(), "private_key": master_key.PrivateKey().hex(),
-                  "public_key": master_key.PublicKey().hex(),
-                  "uncompressed_public_key": master_key.UncompressedPublicKey().hex(), "serialized": {
+        wallet = {"address": master_key.address(),
+                  "wif": master_key.walletImportFormat(), "finger_print": master_key.fingerPrint().hex(),
+                  "chain_code": master_key.chain.hex(), "private_key": master_key.privateKey().hex(),
+                  "public_key": master_key.publicKey().hex(),
+                  "uncompressed_public_key": master_key.uncompressedPublicKey().hex(), "serialized": {
                 "private_key_hex": "",
                 "public_key_hex": "",
                 "xprivate_key_base58": "",
                 "xpublic_key_base58": "",
-            }}
+        }}
 
         wallet["serialized"]["private_key_hex"] = master_key.ExtendedKey(private=True, encoded=False).hex()
         wallet["serialized"]["public_key_hex"] = master_key.ExtendedKey(private=False, encoded=False).hex()
