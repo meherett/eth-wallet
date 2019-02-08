@@ -206,7 +206,7 @@ class BIP32KEY:
             ck = b'\3' + padx
         else:
             ck = b'\2' + padx
-        return ck.hex()
+        return ck
 
     def UncompressedPublicKey(self, private=None):
         if private:
@@ -224,7 +224,7 @@ class BIP32KEY:
         return hashlib.new('ripemd160', sha256(cK).digest()).digest()
 
     def Fingerprint(self, private=None):
-        return self.Identifier(private)[:4].hex()
+        return self.Identifier(private)[:4]
 
     def Address(self, private=None):
         keccak_256 = sha3.keccak_256()
