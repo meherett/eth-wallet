@@ -255,7 +255,7 @@ class BIP32KEY:
         child = struct.pack('>L', self.index)
         chain = self.chain
 
-        data = b'\x00' + self.PrivateKey()
+        data = b'\x00' + self.privateKey()
         raw = version + depth + fingerprint + child + chain + data
         if not encoded:
             return raw
