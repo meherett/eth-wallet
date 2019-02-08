@@ -200,13 +200,13 @@ class BIP32KEY:
                 ck = b'\3' + padx
             else:
                 ck = b'\2' + padx
-            return ck
+            return ck.hex()
         padx = (b'\0' * 32 + int_to_string(self.verifiedKey.pubkey.point.x()))[-32:]
         if self.verifiedKey.pubkey.point.y() & 1:
             ck = b'\3' + padx
         else:
             ck = b'\2' + padx
-        return ck
+        return ck.hex()
 
     def UncompressedPublicKey(self, private=None):
         if private:
