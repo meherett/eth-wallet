@@ -216,7 +216,7 @@ class BIP32KEY:
             return verifiedKey.to_string()
         return self.verifiedKey.to_string()
 
-    def ChainCode(self):
+    def chainCode(self):
         return self.chain.hex()
 
     def identifier(self, private=None):
