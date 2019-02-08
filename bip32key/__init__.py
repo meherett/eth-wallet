@@ -153,7 +153,7 @@ class BIP32KEY:
         if index & BIP32_HARDEN:
             data = b'\0' + self.key.to_string() + i_str
         else:
-            data = self.PublicKey() + i_str
+            data = self.publicKey() + i_str
         Il, Ir = self.hmac(data)
 
         Il_int = string_to_int(Il)
