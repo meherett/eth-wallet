@@ -270,6 +270,13 @@ master_key = master_key.fromIndex(0 + 0x80000000)
 master_key = master_key.fromIndex(0)
 master_key = master_key.fromIndex(0)
 
+print(master_key.Address())
+print(master_key.WalletImportFormat())
+print(master_key.Fingerprint().hex())
+print(master_key.chain.hex())
+print(master_key.PrivateKey().hex())
+print(master_key.PublicKey().hex())
+print(master_key.chain.hex())
 
 # self.hdwallet["address"] = master_key.Address()
 # self.hdwallet["mnemonic"] = mnemonic
