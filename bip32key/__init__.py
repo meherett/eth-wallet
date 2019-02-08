@@ -214,7 +214,7 @@ class BIP32KEY:
             key = ecdsa.SigningKey.from_string(bytes(private), curve=SECP256k1)
             verifiedKey = key.get_verifying_key()
             return verifiedKey.to_string()
-        return self.verifiedKey.to_string()
+        return self.verifiedKey.to_string().hex()
 
     def ChainCode(self):
         return self.chain.hex()
