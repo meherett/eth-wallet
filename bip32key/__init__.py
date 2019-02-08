@@ -274,10 +274,10 @@ class BIP32KEY:
                 "xpublic_key_base58": "",
         }}
 
-        wallet["serialized"]["private_key_hex"] = master_key.ExtendedKey(private=True, encoded=False).hex()
-        wallet["serialized"]["public_key_hex"] = master_key.ExtendedKey(private=False, encoded=False).hex()
-        wallet["serialized"]["xprivate_key_base58"] = master_key.ExtendedKey(private=True, encoded=True)
-        wallet["serialized"]["xpublic_key_base58"] = master_key.ExtendedKey(private=False, encoded=True)
+        wallet["serialized"]["private_key_hex"] = master_key.extendedKey(private=True, encoded=False).hex()
+        wallet["serialized"]["public_key_hex"] = master_key.extendedKey(private=False, encoded=False).hex()
+        wallet["serialized"]["xprivate_key_base58"] = master_key.extendedKey(private=True, encoded=True)
+        wallet["serialized"]["xpublic_key_base58"] = master_key.extendedKey(private=False, encoded=True)
 
         return wallet
 
