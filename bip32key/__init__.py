@@ -177,9 +177,9 @@ class BIP32KEY:
 
         for index in path.lstrip('m/').split('/'):
             if "'" in index:
-                derivePrivateKey = derivePrivateKey.DerivePrivateKey(int(index[:-1]) + BIP32_HARDEN)
+                derivePrivateKey = derivePrivateKey.derivePrivateKey(int(index[:-1]) + BIP32_HARDEN)
             else:
-                derivePrivateKey = derivePrivateKey.DerivePrivateKey(int(index))
+                derivePrivateKey = derivePrivateKey.derivePrivateKey(int(index))
         return derivePrivateKey
 
     def fromIndex(self, index):
