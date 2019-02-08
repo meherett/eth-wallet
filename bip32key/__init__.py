@@ -226,7 +226,7 @@ class BIP32KEY:
     def Fingerprint(self, private=None):
         return self.Identifier(private)[:4]
 
-    def Address(self, private=None):
+    def address(self, private=None):
         keccak_256 = sha3.keccak_256()
         if private:
             private = binascii.unhexlify(private)
