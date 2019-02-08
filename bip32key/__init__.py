@@ -224,7 +224,7 @@ class BIP32KEY:
         return hashlib.new('ripemd160', sha256(cK).digest()).digest()
 
     def fingerPrint(self, private=None):
-        return self.Identifier(private)[:4]
+        return self.identifier(private)[:4]
 
     def address(self, private=None):
         keccak_256 = sha3.keccak_256()
