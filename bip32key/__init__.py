@@ -84,7 +84,7 @@ def encode(data):
 
 def check_encode(raw):
     chk = sha256(sha256(raw).digest()).digest()[:4]
-    return encode(raw + chk)
+    return encode(raw + chk).hex()
 
 
 def decode(data):
