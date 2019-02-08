@@ -248,7 +248,7 @@ class BIP32KEY:
         raw = b'\x80' + self.key.to_string() + b'\x01'
         return check_encode(raw)
 
-    def ExtendedKey(self, private=True, encoded=True):
+    def extendedKey(self, private=True, encoded=True):
         version = EX_MAIN_PRIVATE[0] if private else EX_MAIN_PUBLIC[0]
         depth = bytes(bytearray([self.depth]))
         fingerprint = self.parent_fingerprint
