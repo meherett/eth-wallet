@@ -1,16 +1,16 @@
 from setuptools import setup
 
 setup(
-    name="cobra-hdwallet",
+    name="bip32key",
     version='0.1.0',
     description='',
     long_description='TODO',
     license='MIT',
     author='Meheret Tesfaye',
     author_email='meherett@zoho.com',
-    url='https://github.com/cobraframework/cobra-hdwallet',
+    url='https://github.com/mehetett/bip32key',
     python_requires='>=3.5,<3.7',
-    packages=['cobra_hdwallet'],
+    packages=['bip32key'],
     install_requires=[
         'ecdsa==0.13',
         'two1==3.10.9',
@@ -24,7 +24,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        "Framework :: Cobra",
+        'Programming Language :: Python :: 3.7'
     ],
 )
