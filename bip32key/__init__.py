@@ -272,7 +272,7 @@ class BIP32KEY:
                 "public_key_hex": "",
                 "xprivate_key_base58": "",
                 "xpublic_key_base58": "",
-        }}
+            }}
 
         wallet["serialized"]["private_key_hex"] = master_key.extendedKey(private=True, encoded=False).hex()
         wallet["serialized"]["public_key_hex"] = master_key.extendedKey(private=False, encoded=False).hex()
@@ -290,11 +290,29 @@ master_key = master_key.fromIndex(0 + 0x80000000)
 master_key = master_key.fromIndex(0)
 master_key = master_key.fromIndex(0)
 
+# Get All Information
 print(master_key.print())
 
-# print(master_key.Address())
-# print(master_key.WalletImportFormat())
-# print(master_key.fingerPrint().hex())
-# print(master_key.ChainCode())
-# print(master_key.PrivateKey().hex())
-# print(master_key.PublicKey().hex())
+# Get Address
+print(master_key.address())
+# Get Wallet Import Format
+print(master_key.walletImportFormat())
+# Get Finger Print
+print(master_key.fingerPrint().hex())
+# Get Chain Code
+print(master_key.chainCode())
+# Get Private Key
+print(master_key.privateKey().hex())
+# Get Public Key
+print(master_key.publicKey().hex())
+
+##### Serialized #####
+
+# Get Private Key Hex
+print(master_key.extendedKey(private=True, encoded=False).hex())
+# Get Public Key Hex
+print(master_key.extendedKey(private=False, encoded=False).hex())
+# Get XPrivate Key Base58
+print(master_key.extendedKey(private=True, encoded=True))
+# Get XPublic Key Base58
+print(master_key.extendedKey(private=False, encoded=True))
