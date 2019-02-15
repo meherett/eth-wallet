@@ -20,7 +20,7 @@ from ecdsa.curves import SECP256k1
 from ecdsa.ecdsa import int_to_string, string_to_int
 
 MIN_ENTROPY_LEN = 128
-BIP32_HARDEN = 0x80000000
+BIP32KEY_HARDEN = 0x80000000
 CURVE_GEN = ecdsa.ecdsa.generator_secp256k1
 CURVE_ORDER = CURVE_GEN.order()
 FIELD_ORDER = SECP256k1.curve.p()
@@ -150,7 +150,7 @@ class BIP32KEY:
     def derivePrivateKey(self, index):
 
         i_str = struct.pack(">L", index)
-        if index & BIP32_HARDEN:
+        if index & BIP32KEY_HARDEN:
             data = b'\0' + self.key.to_string() + i_str
         else:
             data = self.publicKey() + i_str
@@ -177,7 +177,7 @@ class BIP32KEY:
 
         for index in path.lstrip('m/').split('/'):
             if "'" in index:
-                derivePrivateKey = derivePrivateKey.derivePrivateKey(int(index[:-1]) + BIP32_HARDEN)
+                derivePrivateKey = derivePrivateKey.derivePrivateKey(int(index[:-1]) + BIP32KEY_HARDEN)
             else:
                 derivePrivateKey = derivePrivateKey.derivePrivateKey(int(index))
         return derivePrivateKey
@@ -284,9 +284,9 @@ class BIP32KEY:
 
 master_key = BIP32KEY.fromEntropy(binascii.hexlify(b"Meheret Tesfaye Batu"))
 
-master_key = master_key.fromIndex(44 + 0x80000000)
-master_key = master_key.fromIndex(60 + 0x80000000)
-master_key = master_key.fromIndex(0 + 0x80000000)
+master_key = master_key.fromIndex(44 + BIP32KEY_HARDEN)
+master_key = master_key.fromIndex(60 + BIP32KEY_HARDEN)
+master_key = master_key.fromIndex(0 + BIP32KEY_HARDEN)
 master_key = master_key.fromIndex(0)
 master_key = master_key.fromIndex(0)
 
