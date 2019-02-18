@@ -183,9 +183,11 @@ class BIP32KEY:
         return derivePrivateKey
 
     def fromIndex(self, index):
-        if not str(index)[0:2] != 'm/':
-            raise ValueError("Bad path, please insert only index int!")
-        return self.derivePrivateKey(int(index))
+        if not str(index)[0:2] != "m/":
+            raise ValueError("Bad Index, Please use fromPath not fromIndex for this %s" % index)
+        if not isinstance(index, int):
+            raise ValueError("Bad Index, Please import only integer number!")
+        return self.derivePrivateKey(index)
 
     def privateKey(self):
         return self.key.to_string()
