@@ -263,56 +263,20 @@ class BIP32KEY:
             return check_encode(raw)
 
     def print(self):
-        wallet = {"address": master_key.address(),
-                  "wif": master_key.walletImportFormat(), "finger_print": master_key.fingerPrint().hex(),
-                  "chain_code": master_key.chain.hex(), "private_key": master_key.privateKey().hex(),
-                  "public_key": master_key.publicKey().hex(),
-                  "uncompressed_public_key": master_key.uncompressedPublicKey().hex(), "serialized": {
+        wallet = {"address": self.address(),
+                  "wif": self.walletImportFormat(), "finger_print": self.fingerPrint().hex(),
+                  "chain_code": self.chain.hex(), "private_key": self.privateKey().hex(),
+                  "public_key": self.publicKey().hex(),
+                  "uncompressed_public_key": self.uncompressedPublicKey().hex(), "serialized": {
                 "private_key_hex": "",
                 "public_key_hex": "",
                 "xprivate_key_base58": "",
                 "xpublic_key_base58": "",
             }}
 
-        wallet["serialized"]["private_key_hex"] = master_key.extendedKey(private=True, encoded=False).hex()
-        wallet["serialized"]["public_key_hex"] = master_key.extendedKey(private=False, encoded=False).hex()
-        wallet["serialized"]["xprivate_key_base58"] = master_key.extendedKey(private=True, encoded=True)
-        wallet["serialized"]["xpublic_key_base58"] = master_key.extendedKey(private=False, encoded=True)
+        wallet["serialized"]["private_key_hex"] = self.extendedKey(private=True, encoded=False).hex()
+        wallet["serialized"]["public_key_hex"] = self.extendedKey(private=False, encoded=False).hex()
+        wallet["serialized"]["xprivate_key_base58"] = self.extendedKey(private=True, encoded=True)
+        wallet["serialized"]["xpublic_key_base58"] = self.extendedKey(private=False, encoded=True)
 
         return wallet
-
-
-master_key = BIP32KEY.fromEntropy(binascii.hexlify(b"Meheret Tesfaye Batu"))
-
-master_key = master_key.fromIndex(44 + BIP32KEY_HARDEN)
-master_key = master_key.fromIndex(60 + BIP32KEY_HARDEN)
-master_key = master_key.fromIndex(0 + BIP32KEY_HARDEN)
-master_key = master_key.fromIndex(0)
-master_key = master_key.fromIndex(0)
-
-# Get All Information
-print(master_key.print())
-
-# Get Address
-print(master_key.address())
-# Get Wallet Import Format
-print(master_key.walletImportFormat())
-# Get Finger Print
-print(master_key.fingerPrint().hex())
-# Get Chain Code
-print(master_key.chainCode())
-# Get Private Key
-print(master_key.privateKey().hex())
-# Get Public Key
-print(master_key.publicKey().hex())
-
-##### Serialized #####
-
-# Get Private Key Hex
-print(master_key.extendedKey(private=True, encoded=False).hex())
-# Get Public Key Hex
-print(master_key.extendedKey(private=False, encoded=False).hex())
-# Get XPrivate Key Base58
-print(master_key.extendedKey(private=True, encoded=True))
-# Get XPublic Key Base58
-print(master_key.extendedKey(private=False, encoded=True))
