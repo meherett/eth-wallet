@@ -1,13 +1,20 @@
 from bip32key import BIP32KEY, BIP32KEY_HARDEN
 import binascii
 
+# Import entropy
+# Like Mnemonic(seed) or any string
 master_key = BIP32KEY.fromEntropy(binascii.hexlify(b"Meheret Tesfaye Batu"))
 
-master_key = master_key.fromIndex(44 + BIP32KEY_HARDEN)
-master_key = master_key.fromIndex(60 + BIP32KEY_HARDEN)
-master_key = master_key.fromIndex(0 + BIP32KEY_HARDEN)
-master_key = master_key.fromIndex(0)
-master_key = master_key.fromIndex(0)
+# Added master key path
+master_key = master_key.fromPath("m/44'/60'/0'/0/0")
+
+# This is same with fromPath
+# master_key = master_key.fromIndex(44 + BIP32KEY_HARDEN)
+# master_key = master_key.fromIndex(60 + BIP32KEY_HARDEN)
+# master_key = master_key.fromIndex(0 + BIP32KEY_HARDEN)
+# master_key = master_key.fromIndex(0)
+# master_key = master_key.fromIndex(0)
+
 
 # Get All Information
 print(master_key.print())
