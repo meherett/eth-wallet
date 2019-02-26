@@ -27,4 +27,6 @@ def test_fromPath_and_fromIndex():
 
     assert master_key_path.privateKey() == master_key_index.privateKey()
 
+    assert len(master_key_path.privateKey().hex()) == 64
+
     assert master_key_path.publicKey() == master_key_index.publicKey()
