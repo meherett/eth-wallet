@@ -1,69 +1,93 @@
 <p align="center">		
-  <img src="https://raw.githubusercontent.com/Cobraframework/pytest-cobra/master/pytest-cobra.png">		
+  <img src="file:///home/meheret/PycharmProjects/bip32key/bip32key.png">		
 </p>
 
-# Cobra-HDWallet ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django.svg?style=for-the-badge)
+# bip32key
 
-*PyTest plugin for testing Smart Contracts for Ethereum blockchain.*
+*The implementation of Hierarchical Deterministic (HD) wallets generator for Ethereum blockchain*
 
-![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
+![GitHub](https://img.shields.io/github/license/meherett/bip32key.svg)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bip32key.svg)
 
-## Requirements
+## Installation
 
-Step 1: Install solc
+Install bip32key
 
 ```
-npm install -g solc
-```
-or
-```
-sudo add-apt-repository ppa:ethereum/ethereum
-sudo apt-get update
-sudo apt-get install solc
-```
-
-Step 2: Install PyTest
-```bash
-pip install -U pytest
-```
-
-Step 3: Install plugin PyTest-Cobra
-```
-pip install pytest-cobra
+pip install bip32key
 ```
 
 ## Usage
 
-#### Execute your test suite
+##### Import entropy
+```
+from bip32key import BIP32KEY, BIP32KEY_HARDEN
+import binascii
 
-##### 1: Testing Solidity file
-
-```
-pytest --cobra Contracts.sol
-```
-import_remappings
-```
-pytest --cobra Contracts.sol --remapping ["/home/path/dir/"]
+# Import entropy
+entropy = binascii.hexlify(b"Meheret Tesfaye Batu")
+master_key = BIP32KEY.fromEntropy(entropy)
 ```
 
-##### 2: Testing Contracts Json file
-
-Compile your contracts into a package (soon to be ethPM-compliant)
+##### Import Path
 ```
-solc --combined-json abi,bin,bin-runtime contracts/ > Contracts.json
-```
-Testing Contracts.json
-```
-pytest --cobra Contracts.json
+# Added master key path
+master_key = master_key.fromPath("m/44'/69'/12'/5/0")
 ```
 
-##### 3: Testing Contracts yaml file 
-```Comming soon with Cobra Framework```
+##### Or Import Index 
+```
+# This is same with fromPath
+master_key = master_key.fromIndex(44 + BIP32KEY_HARDEN)
+master_key = master_key.fromIndex(69 + BIP32KEY_HARDEN)
+master_key = master_key.fromIndex(12 + BIP32KEY_HARDEN)
+master_key = master_key.fromIndex(5)
+master_key = master_key.fromIndex(0)
+```
 
-## Further help
-##### PyTest
-Go check out the [PyTest](http://pytest.org).
+##### Get All
+```
+# Get All Information
+print(master_key.print())
 
-## Donation
-[![Donate with Bitcoin](https://en.cryptobadges.io/badge/big/3JiPsp6bT6PkXF3f9yZsL5hrdQwtVuXXAk)](https://en.cryptobadges.io/donate/3JiPsp6bT6PkXF3f9yZsL5hrdQwtVuXXAk)
-[![Donate with Ethereum](https://en.cryptobadges.io/badge/big/0xD32AAEDF28A848e21040B6F643861A9077F83106)](https://en.cryptobadges.io/donate/0xD32AAEDF28A848e21040B6F643861A9077F83106)
+# Get Address
+print(master_key.address())
+# Get Wallet Import Format
+print(master_key.walletImportFormat())
+# Get Finger Print
+print(master_key.fingerPrint().hex())
+# Get Chain Code
+print(master_key.chainCode())
+# Get Private Key
+print(master_key.privateKey().hex())
+# Get Public Key
+print(master_key.publicKey().hex())
+
+##### Serialized #####
+
+# Get Private Key Hex
+print(master_key.extendedKey(private=True, encoded=False).hex())
+# Get Public Key Hex
+print(master_key.extendedKey(private=False, encoded=False).hex())
+# Get XPrivate Key Base58
+print(master_key.extendedKey(private=True, encoded=True))
+# Get XPublic Key Base58
+print(master_key.extendedKey(private=False, encoded=True))
+```
+
+## Example
+
+###### Metamask and MyEtherWallet uses this path/index
+```
+master_key = master_key.fromPath("m/44'/60'/0'/0/0")
+```
+```
+master_key = master_key.fromIndex(44 + BIP32KEY_HARDEN)
+master_key = master_key.fromIndex(60 + BIP32KEY_HARDEN)
+master_key = master_key.fromIndex(0 + BIP32KEY_HARDEN)
+master_key = master_key.fromIndex(0)
+master_key = master_key.fromIndex(0)
+```
+
+## Author
+##### # Meheret Tesfaye [@meherett](http://github.com/meherett).
