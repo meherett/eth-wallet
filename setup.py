@@ -6,7 +6,7 @@ with open("README.md", "r") as readme:
 setup(
     name="bip32key",
     version='0.1.0',
-    description='',
+    description='The implementation of Hierarchical Deterministic (HD) wallets generator for Ethereum blockchain',
     long_description=long_description,
     license='MIT',
     author='Meheret Tesfaye',
