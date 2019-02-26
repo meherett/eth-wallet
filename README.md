@@ -8,6 +8,7 @@
 
 ![GitHub](https://img.shields.io/github/license/cobraframework/cobra-hdwallet.svg)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bip32key.svg)
+![GitHub](https://img.shields.io/github/release/meherett/bip32key.svg)
 
 ## Installation
 
