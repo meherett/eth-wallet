@@ -1,5 +1,5 @@
 <p align="start">		
-  <img src="file:///home/meheret/PycharmProjects/bip32key/bip32key.png">		
+  <img src="https://raw.githubusercontent.com/meherett/bip32key/master/bip32key.png">		
 </p>
 
 # bip32key
