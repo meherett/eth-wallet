@@ -1,4 +1,4 @@
-<p align="center">		
+<p align="start">		
   <img src="file:///home/meheret/PycharmProjects/bip32key/bip32key.png">		
 </p>
 
