@@ -6,13 +6,13 @@ import binascii
 master_key = BIP32KEY.fromEntropy(binascii.hexlify(b"Meheret Tesfaye Batu"))
 
 # Added master key path
-master_key = master_key.fromPath("m/44'/60'/0'/0/0")
+master_key = master_key.fromPath("m/44'/60'/0'/34/0")
 
 # This is same with fromPath
 # master_key = master_key.fromIndex(44 + BIP32KEY_HARDEN)
 # master_key = master_key.fromIndex(60 + BIP32KEY_HARDEN)
 # master_key = master_key.fromIndex(0 + BIP32KEY_HARDEN)
-# master_key = master_key.fromIndex(0)
+# master_key = master_key.fromIndex(34)
 # master_key = master_key.fromIndex(0)
 
 
