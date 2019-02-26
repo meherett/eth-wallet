@@ -6,7 +6,7 @@
 
 *The implementation of Hierarchical Deterministic (HD) wallets generator for Ethereum blockchain*
 
-![GitHub](https://img.shields.io/github/license/meherett/bip32key.svg)
+![GitHub](https://img.shields.io/github/license/cobraframework/cobra-hdwallet.svg)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bip32key.svg)
 
 ## Installation
