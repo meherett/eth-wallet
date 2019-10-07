@@ -14,14 +14,14 @@
 
 Install bip32key
 
-```
+```comandline
 pip install bip32key
 ```
 
 ## Usage
 
 ##### Import entropy
-```
+```python
 from bip32key import BIP32KEY, BIP32KEY_HARDEN
 import binascii
 
@@ -31,13 +31,13 @@ master_key = BIP32KEY.fromEntropy(entropy)
 ```
 
 ##### Import Path
-```
+```python
 # Added master key path
 master_key = master_key.fromPath("m/44'/69'/12'/5/0")
 ```
 
 ##### Or Import Index 
-```
+```python
 # This is same with fromPath
 master_key = master_key.fromIndex(44 + BIP32KEY_HARDEN)
 master_key = master_key.fromIndex(69 + BIP32KEY_HARDEN)
@@ -47,7 +47,7 @@ master_key = master_key.fromIndex(0)
 ```
 
 ##### Get All
-```
+```python
 # Get All Information
 print(master_key.print())
 
@@ -79,10 +79,10 @@ print(master_key.extendedKey(private=False, encoded=True))
 ## Example
 
 ###### Metamask and MyEtherWallet uses this path/index
-```
+```python
 master_key = master_key.fromPath("m/44'/60'/0'/0/0")
 ```
-```
+```python
 master_key = master_key.fromIndex(44 + BIP32KEY_HARDEN)
 master_key = master_key.fromIndex(60 + BIP32KEY_HARDEN)
 master_key = master_key.fromIndex(0 + BIP32KEY_HARDEN)
