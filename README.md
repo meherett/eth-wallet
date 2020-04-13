@@ -9,3 +9,5 @@ The implementation of Hierarchical Deterministic (HD) wallets generator for Ethe
 ```
 $ pip install eth-wallet
 ```
+
+[Click this to see example](https://github.com/meherett/eth-wallet/blob/master/examples/example.py).
