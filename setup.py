@@ -1,33 +1,42 @@
-from setuptools import setup
+#!/usr/bin/env python3
 
+from setuptools import setup, find_packages
+
+import eth_wallet
+
+# README.md
 with open("README.md", "r") as readme:
     long_description = readme.read()
 
+# requirements.txt
+with open("requirements.txt", "r") as _requirements:
+    requirements = list(map(str.strip, _requirements.read().split("\n")))
+
 setup(
-    name="bip32key",
-    version='0.1.2',
-    description='The implementation of Hierarchical Deterministic (HD) wallets generator for Ethereum blockchain',
+    name="eth-wallet",
+    version=eth_wallet.__version__,
+    description="The implementation of Hierarchical Deterministic (HD) wallets generator for Ethereum protocol.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    license='MIT',
-    author='Meheret Tesfaye',
-    author_email='meherett@zoho.com',
-    url='https://github.com/mehetett/bip32key',
-    python_requires='>=3.5,<3.7',
-    packages=['bip32key'],
-    install_requires=[
-        'ecdsa==0.13',
-        'two1==3.10.9',
-        'base58==0.2.2',
-        'pysha3==1.0.2',
-        'mnemonic==0.13',
-        'eth_keyfile==0.5.1'
-    ],
+    license=eth_wallet.__license__,
+    author=eth_wallet.__author__,
+    author_email=eth_wallet.__email__,
+    url="https://github.com/mehetett/bip32key",
+    keywords=["ethereum-wallet", "eth", "wallet"],
+    python_requires=">=3.6,<4",
+    packages=find_packages(),
+    install_requires=requirements,
+    extras_require={
+        "tests": [
+            "pytest>=5.4.1,<6",
+            "pytest-cov>=2.8.1,<3"
+        ]
+    },
     classifiers=[
-        "Development Status :: 3 - Alpha",
-        "License :: OSI Approved :: MIT License",
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7'
-    ],
+        "Development Status :: 2 - Pre-Alpha",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8"
+    ]
 )
