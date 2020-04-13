@@ -9,7 +9,6 @@ GITHUB: https://github.com/meherett
 from ecdsa.curves import SECP256k1
 from ecdsa.ecdsa import int_to_string, string_to_int
 from binascii import hexlify, unhexlify
-from attrdict import AttrDict
 
 import hmac
 import ecdsa
@@ -247,7 +246,7 @@ class Wallet:
             return check_encode(raw)
 
     def dumps(self):
-        return AttrDict({
+        return {
             "private_key": self.private_key(),
             "public_key": self.public_key(),
             "uncompressed": self.uncompressed(),
@@ -262,4 +261,4 @@ class Wallet:
                 "xprivate_key_base58": self.extended_key(private_key=True, encoded=True),
                 "xpublic_key_base58": self.extended_key(private_key=False, encoded=True),
             }
-        })
+        }
