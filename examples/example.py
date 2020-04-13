@@ -32,7 +32,7 @@ print("Finger Print:", wallet.finger_print())
 # Get Chain Code
 print("Chain Code:", wallet.chain_code())
 # Get Derivation Path
-print("Path:", wallet.path())
+print("BIP32 Derivation Path:", wallet.path())
 # Get Address
 print("Address:", wallet.address())
 
