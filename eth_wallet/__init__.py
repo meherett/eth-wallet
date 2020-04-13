@@ -1,7 +1,16 @@
 #!/usr/bin/env python3
 
-from .wallet import Wallet
-from .utils import utils, base58
+try:
+    from .wallet import Wallet
+    from .utils import utils, base58
+    modules = [
+        "Wallet",
+        "utils",
+        "base58"
+    ]
+except ModuleNotFoundError:
+    modules = []
+
 
 # ETH-Wallet Information's
 __version__ = "0.1.0"
@@ -15,7 +24,5 @@ __all__ = [
     "__license__",
     "__author__",
     "__email__",
-    "Wallet",
-    "utils",
-    "base58"
+    *modules
 ]
