@@ -1,10 +1,17 @@
+# Files stuff
+.coverage
+make.bat
+Makefile
+
+# Folders stuff
+.examples/
 .idea/
 .tox/
 
 # Setuptools stuff
 build/
 dist/
-bip32key.egg-info/
+eth_wallet.egg-info/
 
 # Python stuff
 __pycache__/
