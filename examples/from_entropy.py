@@ -1,17 +1,24 @@
 #!/usr/bin/env python3
 
 from eth_wallet import Wallet
+from eth_wallet.utils import generate_entropy
 
-# 12 word seeds
-MNEMONIC = "indicate warm sock mistake code spot acid ribbon sing over taxi toast"
+import json
+
+# 128 strength entropy
+ENTROPY = "50f002376c81c96e430b48f1fe71df57"
+# Or generate entropy
+# ENTROPY = generate_entropy(strength=128)
+# Secret passphrase
+PASSPHRASE = None  # str("meherett")
 
 # Initialize wallet
 wallet = Wallet()
-# Get Ethereum wallet from mnemonic
-wallet.from_mnemonic(mnemonic=MNEMONIC)
+# Get Ethereum wallet from entropy
+wallet.from_entropy(entropy=ENTROPY, passphrase=PASSPHRASE, language="korean")
 
 # Derivation from path
-# wallet.from_path("m/44'/60'/0'/0/0")
+# wallet.from_path("m/44'/60'/0'/0/0'")
 # Derivation from index
 wallet.from_index(44, harden=True)
 wallet.from_index(60, harden=True)
@@ -19,6 +26,17 @@ wallet.from_index(0, harden=True)
 wallet.from_index(0)
 wallet.from_index(0, harden=True)
 
+# Print all wallet information's
+# print(json.dumps(wallet.dumps(), indent=4))
+
+# Get Entropy
+print("Entropy:", wallet.entropy())
+# Get Mnemonic
+print("Mnemonic:", wallet.mnemonic())
+# Get Passphrase
+print("Passphrase:", wallet.passphrase())
+# Get Seed
+print("Seed:", wallet.seed())
 # Get Private Key
 print("Private Key:", wallet.private_key())
 # Get Public Key
@@ -32,21 +50,22 @@ print("Finger Print:", wallet.finger_print())
 # Get Chain Code
 print("Chain Code:", wallet.chain_code())
 # Get Derivation Path
-print("BIP32 Derivation Path:", wallet.path())
+print("Derivation Path:", wallet.path())
 # Get Address
 print("Address:", wallet.address())
 
-# #### Serialized #####
+# ---- Serialized ----
+print("---- Serialized ----")
 
 # Get Private Key Hex
-print("BIP32 Extended Private Key Encoded:",
+print("Private Key Hex:",
       wallet.extended_key(private_key=True, encoded=False))
 # Get Public Key Hex
-print("BIP32 Extended Public Key Encoded:",
+print("Public Key Hex:",
       wallet.extended_key(private_key=False, encoded=False))
-# Get XPrivate Key Base58
-print("BIP32 Extended Private Key:",
+# Get Private Key Base58
+print("Private Key Base58:",
       wallet.extended_key(private_key=True, encoded=True))
 # Get XPublic Key Base58
-print("BIP32 Extended Public Key:",
+print("Public Key Base58:",
       wallet.extended_key(private_key=False, encoded=True))
