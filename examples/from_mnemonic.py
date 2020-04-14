@@ -11,14 +11,17 @@ MNEMONIC = "병아리 실컷 여인 축�
 # MNEMONIC = generate_mnemonic(language="korean", strength=128)
 # Secret passphrase
 PASSPHRASE = None  # str("meherett")
+# Choose language english, french, italian, spanish, chinese_simplified, chinese_traditional & korean
+LANGUAGE = "korean"  # default is english
 
 # Checking 12 word mnemonic seed
-assert check_mnemonic(mnemonic=MNEMONIC, language="korean"), "Invalid korean 12 word mnemonic seed."
+assert check_mnemonic(mnemonic=MNEMONIC, language=LANGUAGE), \
+      "Invalid %s 12 word mnemonic seed." % LANGUAGE
 
 # Initialize wallet
 wallet = Wallet()
 # Get Ethereum wallet from mnemonic
-wallet.from_mnemonic(mnemonic=MNEMONIC, passphrase=PASSPHRASE)
+wallet.from_mnemonic(mnemonic=MNEMONIC, passphrase=PASSPHRASE, language=LANGUAGE)
 
 # Derivation from path
 # wallet.from_path("m/44'/60'/0'/0/0")
@@ -34,6 +37,8 @@ wallet.from_index(0, harden=True)
 
 # Get Mnemonic
 print("Mnemonic:", wallet.mnemonic())
+# Get Language
+print("Language:", wallet.language())
 # Get Passphrase
 print("Passphrase:", wallet.passphrase())
 # Get Seed

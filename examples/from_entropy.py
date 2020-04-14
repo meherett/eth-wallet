@@ -11,11 +11,13 @@ ENTROPY = "50f002376c81c96e430b48f1fe71df57"
 # ENTROPY = generate_entropy(strength=128)
 # Secret passphrase
 PASSPHRASE = None  # str("meherett")
+# Choose language english, french, italian, spanish, chinese_simplified, chinese_traditional & korean
+LANGUAGE = "korean"  # default is english
 
 # Initialize wallet
 wallet = Wallet()
 # Get Ethereum wallet from entropy
-wallet.from_entropy(entropy=ENTROPY, passphrase=PASSPHRASE, language="korean")
+wallet.from_entropy(entropy=ENTROPY, passphrase=PASSPHRASE, language=LANGUAGE)
 
 # Derivation from path
 # wallet.from_path("m/44'/60'/0'/0/0'")
@@ -33,6 +35,8 @@ wallet.from_index(0, harden=True)
 print("Entropy:", wallet.entropy())
 # Get Mnemonic
 print("Mnemonic:", wallet.mnemonic())
+# Get Language
+print("Language:", wallet.language())
 # Get Passphrase
 print("Passphrase:", wallet.passphrase())
 # Get Seed
