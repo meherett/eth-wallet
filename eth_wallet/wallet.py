@@ -39,29 +39,22 @@ EX_MAIN_PUBLiC = [
 class Wallet:
 
     def __init__(self):
-
-        self.secret = None
+        # Initialize core
         self.parent_fingerprint = b"\0\0\0\0"
-
-        self.key = None
-        self.verified_key = None
-
-        self.chain = None
-        self.depth = 0
-        self.index = 0
-
-        self.mnemonic = None
-        self.seed = None
-        self._path = "m"
+        self.secret, self.key, self.verified_key = None, None, None
+        self.chain, self.depth, self.index = None, 0, 0
+        # Wallet information's
+        self._mnemonic, self._seed, self._path = None, None, "m"
 
     def from_entropy(self, entropy,
                      passphrase=str(), language="english"):
 
-        self.mnemonic = Mnemonic(language=language) \
+        self._mnemonic = Mnemonic(language=language) \
             .to_mnemonic(entropy.encode())
+        self._seed = Mnemonic.to_seed(self._mnemonic, passphrase)
 
         i = hmac.new(b"Bitcoin seed", get_bytes(
-            Mnemonic.to_seed(self.mnemonic, passphrase)), hashlib.sha512).digest()
+            self._seed), hashlib.sha512).digest()
         il, ir = i[:32], i[32:]
 
         parse_il = int.from_bytes(il, "big")
@@ -78,9 +71,11 @@ class Wallet:
         if not check_mnemonic(mnemonic):
             raise ValueError("Invalid 12 word mnemonic!")
 
-        self.mnemonic = mnemonic
+        self._mnemonic = mnemonic
+        self._seed = Mnemonic.to_seed(self._mnemonic, passphrase)
+
         i = hmac.new(b"Bitcoin seed", get_bytes(
-            Mnemonic.to_seed(self.mnemonic, passphrase)), hashlib.sha512).digest()
+            self._seed), hashlib.sha512).digest()
         il, ir = i[:32], i[32:]
 
         parse_il = int.from_bytes(il, "big")
@@ -94,7 +89,7 @@ class Wallet:
 
     def from_seed(self, seed):
 
-        self.seed = seed
+        self._seed = seed
         i = hmac.new(b"Bitcoin seed", get_bytes(seed), hashlib.sha512).digest()
         il, ir = i[:32], i[32:]
 
@@ -157,6 +152,8 @@ class Wallet:
         if not isinstance(index, int):
             raise ValueError("Bad index, Please import only integer number!")
 
+        if self._path is None:
+            self._path = "m"
         if harden:
             self._path = self._path + ("/%d'" % index)
             self.derive_private_key(index + BIP32KEY_HARDEN)
@@ -186,6 +183,16 @@ class Wallet:
         else:
             ck = b"\2" + padx
         return hexlify(ck).decode()
+
+    def mnemonic(self):
+        if self._mnemonic is None:
+            return str("Unknown")
+        return str(self._mnemonic)
+
+    def seed(self):
+        if self._seed is None:
+            return str("Unknown")
+        return hexlify(self._seed).decode()
 
     def path(self):
         if self._path is None:
@@ -251,15 +258,17 @@ class Wallet:
         try:
             raw = (version + depth +
                    parent_fingerprint + child + chain + data)
-            if not encoded:
-                return raw.hex()
-            else:
+            if encoded:
                 return check_encode(raw)
+            else:
+                return raw.hex()
         except TypeError:
             return str("Unknown")
 
     def dumps(self):
         return {
+            "mnemonic": self.mnemonic(),
+            "seed": self.seed(),
             "private_key": self.private_key(),
             "public_key": self.public_key(),
             "uncompressed": self.uncompressed(),
@@ -271,7 +280,7 @@ class Wallet:
             "serialized": {
                 "private_key_hex": self.extended_key(private_key=True, encoded=False),
                 "public_key_hex": self.extended_key(private_key=False, encoded=False),
-                "xprivate_key_base58": self.extended_key(private_key=True, encoded=True),
-                "xpublic_key_base58": self.extended_key(private_key=False, encoded=True),
+                "private_key_base58": self.extended_key(private_key=True, encoded=True),
+                "public_key_base58": self.extended_key(private_key=False, encoded=True),
             }
         }
