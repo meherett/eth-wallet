@@ -135,6 +135,12 @@ class Wallet:
         self.verified_key = self.key.get_verifying_key()
         return self
 
+    def from_private_key(self, private_key):
+        self.secret, self.chain,  self._path = unhexlify(private_key), None, None
+        self.key = ecdsa.SigningKey.from_string(self.secret, curve=SECP256k1)
+        self.verified_key = self.key.get_verifying_key()
+        return self
+
     def from_path(self, path):
         if str(path)[0:2] != "m/":
             raise ValueError("Bad path, please insert like this type of path \"m/0'/0\"! ")
@@ -182,6 +188,8 @@ class Wallet:
         return hexlify(ck).decode()
 
     def path(self):
+        if self._path is None:
+            return str("Unknown")
         return str(self._path)
 
     def uncompressed(self, private_key=None):
@@ -193,6 +201,8 @@ class Wallet:
         return hexlify(self.verified_key.to_string()).decode()
 
     def chain_code(self):
+        if self.chain is None:
+            return str("Unknown")
         return self.chain.hex()
 
     def identifier(self, private_key=None):
@@ -238,12 +248,15 @@ class Wallet:
         chain = self.chain
 
         data = b"\x00" + unhexlify(self.private_key())
-        raw = (version + depth +
-               parent_fingerprint + child + chain + data)
-        if not encoded:
-            return raw.hex()
-        else:
-            return check_encode(raw)
+        try:
+            raw = (version + depth +
+                   parent_fingerprint + child + chain + data)
+            if not encoded:
+                return raw.hex()
+            else:
+                return check_encode(raw)
+        except TypeError:
+            return str("Unknown")
 
     def dumps(self):
         return {
