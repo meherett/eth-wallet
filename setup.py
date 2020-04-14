@@ -21,7 +21,7 @@ setup(
     license=eth_wallet.__license__,
     author=eth_wallet.__author__,
     author_email=eth_wallet.__email__,
-    url="https://github.com/mehetett/bip32key",
+    url="https://github.com/mehetett/eth-wallet",
     keywords=["ethereum-wallet", "eth", "wallet"],
     python_requires=">=3.6,<4",
     packages=find_packages(),
