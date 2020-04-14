@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from eth_wallet.wallet import Wallet
+from eth_wallet import Wallet
 
 # 12 word seeds
 MNEMONIC = "indicate warm sock mistake code spot acid ribbon sing over taxi toast"
