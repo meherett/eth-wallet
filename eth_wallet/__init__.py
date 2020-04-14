@@ -2,14 +2,9 @@
 
 try:
     from .wallet import Wallet
-    from .utils import utils, base58
-    modules = [
-        "Wallet",
-        "utils",
-        "base58"
-    ]
+    modules = ["Wallet"]
 except ModuleNotFoundError:
-    modules = []
+    modules = list()
 
 
 # ETH-Wallet Information's
