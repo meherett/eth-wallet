@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+
+from eth_wallet.utils import generate_mnemonic, generate_entropy, check_mnemonic, get_bytes
+
+import pytest
+
+
+MNEMONIC = "병아리 실컷 여인 축제 극히 저녁 경찰 설사 할인 해물 시각 자가용"
+
+
+def test_base58():
+
+    assert len(generate_entropy(strength=128)) == 32
+
+    assert len(generate_mnemonic(language="chinese_traditional", strength=128).split(" ")) == 12
+
+    with pytest.raises(ValueError, match=r".*[128, 160, 192, 224, 256].*"):
+        assert len(generate_entropy(strength=129).split(" ")) == 12
+
+    assert check_mnemonic(mnemonic=MNEMONIC, language="korean")
+
+    assert not check_mnemonic(mnemonic=12341234, language="english")
+
+    with pytest.raises(TypeError, match=r".*'bytes' or 'string'.*"):
+        assert get_bytes(1234)

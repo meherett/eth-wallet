@@ -2,6 +2,8 @@
 
 from eth_wallet.wallet import Wallet
 
+import pytest
+
 
 SEED = "bd421c81fbbb1cea7910851857817ac18f1fce9b9577a3e732ad28ae8ba4e097b072c48e694e5053df5db8a86d5cbacbbfee02b42d" \
        "12c554d06313a0dadacf6b"
@@ -71,3 +73,9 @@ def test_from_seed():
                                  "FzyrooyRnExz5dUo1K8yma4UvxQefbQ"
         }
     }
+
+    with pytest.raises(ValueError, match="Bad path, please insert like this type of path \"m/0'/0\"!"):
+        assert wallet.from_path("meherett")
+
+    with pytest.raises(ValueError, match="Bad index, Please import only integer number!"):
+        assert wallet.from_index("meherett")
