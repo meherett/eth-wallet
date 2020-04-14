@@ -74,7 +74,7 @@ def test_from_seed():
         }
     }
 
-    with pytest.raises(ValueError, match="Bad path, please insert like this type of path \"m/0'/0\"!"):
+    with pytest.raises(ValueError, match="Bad path, please insert like this type of path \"m/0'/0\"! "):
         assert wallet.from_path("meherett")
 
     with pytest.raises(ValueError, match="Bad index, Please import only integer number!"):
