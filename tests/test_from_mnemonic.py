@@ -19,6 +19,13 @@ def test_from_mnemonic():
     wallet.from_index(0)
     wallet.from_index(0, harden=True)
 
+    assert wallet.entropy() is None
+    assert wallet.mnemonic() == \
+        "indicate warm sock mistake code spot acid ribbon sing over taxi toast"
+    assert wallet.language() == "english"
+    assert wallet.passphrase() is None
+    assert wallet.seed() == "baff3e1fe60e1f2a2d840d304acc98d1818140c79354a353b400fb019bfb256bc392d7aa9047adff1f14b" \
+                            "ce0342e14605c6743a6c08e02150588375eb2eb7d49"
     assert wallet.private_key() == "678d12447649cc9eeede87562069c2ff1524f31df025f521be255d4a6c8eaed0"
     assert wallet.public_key() == "03df79315f83cfeaadbd88bfc0033367ebd2ca7e08df8074fc2415d78ed1a3e73f"
     assert wallet.uncompressed() == "df79315f83cfeaadbd88bfc0033367ebd2ca7e08df8074fc2415d78ed1a3e73f1e4f78a8cae1d" \
