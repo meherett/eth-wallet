@@ -46,13 +46,14 @@ class Wallet:
         self.secret, self.key, self.verified_key = None, None, None
         self.chain, self.depth, self.index = None, 0, 0
         # Wallet information's
-        self._entropy, self._mnemonic, self._seed, \
-            self._path, self._passphrase = None, None, None, "m", None
+        self._entropy, self._mnemonic, self._language, self._seed, \
+            self._path, self._passphrase = None, None, None, None, "m", None
 
     def from_entropy(self, entropy,
                      passphrase=None, language="english"):
 
         self._entropy = entropy
+        self._language = str(language)
         self._passphrase = str(passphrase) if passphrase else str()
         self._mnemonic = Mnemonic(language=language) \
             .to_mnemonic(unhexlify(self._entropy))
@@ -71,9 +72,13 @@ class Wallet:
         self.verified_key = self.key.get_verifying_key()
         return self
 
-    def from_mnemonic(self, mnemonic, passphrase=None):
+    def from_mnemonic(self, mnemonic, passphrase=None, language="english"):
+
+        if not check_mnemonic(mnemonic=mnemonic, language=language):
+            raise ValueError("Invalid %s 12 word mnemonic seed." % language)
 
         self._mnemonic = mnemonic
+        self._language = str(language)
         self._passphrase = str(passphrase) if passphrase else str()
         self._seed = Mnemonic.to_seed(self._mnemonic, self._passphrase)
 
@@ -202,6 +207,11 @@ class Wallet:
             return str(self._passphrase)
         return None
 
+    def language(self):
+        if self._language:
+            return str(self._language)
+        return None
+
     def seed(self):
         if self._seed:
             return hexlify(self._seed).decode()
@@ -282,6 +292,7 @@ class Wallet:
         return dict(
             entropy=self.entropy(),
             mnemonic=self.mnemonic(),
+            language=self.language(),
             passphrase=self.passphrase(),
             seed=self.seed(),
             private_key=self.private_key(),
