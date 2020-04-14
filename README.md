@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/meherett/eth-wallet.svg?branch=master)](https://travis-ci.org/meherett/eth-wallet)
 ![PyPI Version](https://img.shields.io/pypi/v/eth-wallet.svg?color=blue)
-![PyPI Python Version](https://img.shields.io/pypi/pyversions/eth-wallet.svg)
 [![Coverage Status](https://coveralls.io/repos/github/meherett/eth-wallet/badge.svg?branch=master)](https://coveralls.io/github/meherett/eth-wallet?branch=master)
 
 The implementation of Hierarchical Deterministic (HD) wallets generator for Ethereum protocol.
