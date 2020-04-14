@@ -7,8 +7,8 @@ except ModuleNotFoundError:
     modules = list()
 
 
-# ETH-Wallet Information's
-__version__ = "0.2.0"
+# Author Information's
+__version__ = "0.2.1"
 __license__ = "GPL-3.0"
 __author__ = "Meheret Tesfaye"
 __email__ = "meherett@zoho.com"
