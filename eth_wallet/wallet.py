@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-AUTHOR: Meheret Tesfaye
-EMAIL: meherett@zoho.com
-GITHUB: https://github.com/meherett
-"""
-
 from ecdsa.curves import SECP256k1
 from ecdsa.ecdsa import int_to_string, string_to_int
 from binascii import hexlify, unhexlify
@@ -18,7 +12,6 @@ import struct
 import sha3
 import codecs
 import hashlib
-import binascii
 
 from eth_wallet.libs.base58 import checksum_encode, check_encode
 from eth_wallet.utils import get_bytes, check_mnemonic
@@ -160,8 +153,6 @@ class Wallet:
         if not isinstance(index, int):
             raise ValueError("Bad index, Please import only integer number!")
 
-        if self._path is None:
-            self._path = "m"
         if harden:
             self._path = self._path + ("/%d'" % index)
             self.derive_private_key(index + BIP32KEY_HARDEN)
@@ -222,12 +213,7 @@ class Wallet:
             return str(self._path)
         return None
 
-    def uncompressed(self, private_key=None):
-        if private_key:
-            private_key = binascii.unhexlify(private_key)
-            key = ecdsa.SigningKey.from_string(bytes(private_key), curve=SECP256k1)
-            verified_key = key.get_verifying_key()
-            return hexlify(verified_key.to_string()).decode()
+    def uncompressed(self):
         return hexlify(self.verified_key.to_string()).decode()
 
     def chain_code(self):
@@ -235,38 +221,21 @@ class Wallet:
             return self.chain.hex()
         return None
 
-    def identifier(self, private_key=None):
-        if private_key is None:
-            return hashlib.new("ripemd160", sha256(
-                unhexlify(self.public_key(self.private_key()))).digest()).digest()
+    def identifier(self, private_key):
         return hashlib.new("ripemd160", sha256(
             unhexlify(self.public_key(private_key))).digest()).digest()
 
     def finger_print(self, private_key=None):
-        if private_key is None:
-            return hexlify(self.identifier(
-                self.private_key())[:4]).decode()
-        return hexlify(self.identifier(private_key)[:4]).decode()
+        return hexlify(self.identifier(
+            self.private_key())[:4]).decode()
 
-    def address(self, private_key=None):
+    def address(self):
         keccak_256 = sha3.keccak_256()
-        if private_key:
-            key = ecdsa.SigningKey.from_string(
-                unhexlify(private_key), curve=SECP256k1)
-            verified_key = key.get_verifying_key()
-            keccak_256.update(verified_key.to_string())
-            address = keccak_256.hexdigest()[24:]
-            return checksum_encode(address)
         keccak_256.update(self.verified_key.to_string())
         address = keccak_256.hexdigest()[24:]
         return checksum_encode(address)
 
-    def wallet_import_format(self, private_key=None):
-        if private_key:
-            key = ecdsa.SigningKey.from_string(
-                unhexlify(private_key), curve=SECP256k1)
-            raw = b"\x80" + key.to_string() + b"\x01"
-            return check_encode(raw)
+    def wallet_import_format(self):
         raw = b"\x80" + self.key.to_string() + b"\x01"
         return check_encode(raw)
 
