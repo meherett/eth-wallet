@@ -9,17 +9,19 @@ GITHUB: https://github.com/meherett
 from ecdsa.curves import SECP256k1
 from ecdsa.ecdsa import int_to_string, string_to_int
 from binascii import hexlify, unhexlify
+from mnemonic import Mnemonic
+from hashlib import sha256
 
 import hmac
 import ecdsa
 import struct
+import sha3
 import codecs
 import hashlib
 import binascii
 
-from eth_wallet.utils.base58 import *
-from eth_wallet.utils.utils import *
-
+from eth_wallet.libs.base58 import checksum_encode, check_encode
+from eth_wallet.utils import get_bytes, check_mnemonic
 
 MiN_ENTROPY_LEN = 128
 BIP32KEY_HARDEN = 0x80000000
@@ -44,14 +46,17 @@ class Wallet:
         self.secret, self.key, self.verified_key = None, None, None
         self.chain, self.depth, self.index = None, 0, 0
         # Wallet information's
-        self._mnemonic, self._seed, self._path = None, None, "m"
+        self._entropy, self._mnemonic, self._seed, \
+            self._path, self._passphrase = None, None, None, "m", None
 
     def from_entropy(self, entropy,
-                     passphrase=str(), language="english"):
+                     passphrase=None, language="english"):
 
+        self._entropy = entropy
+        self._passphrase = str(passphrase) if passphrase else str()
         self._mnemonic = Mnemonic(language=language) \
-            .to_mnemonic(entropy.encode())
-        self._seed = Mnemonic.to_seed(self._mnemonic, passphrase)
+            .to_mnemonic(unhexlify(self._entropy))
+        self._seed = Mnemonic.to_seed(self._mnemonic, self._passphrase)
 
         i = hmac.new(b"Bitcoin seed", get_bytes(
             self._seed), hashlib.sha512).digest()
@@ -66,13 +71,11 @@ class Wallet:
         self.verified_key = self.key.get_verifying_key()
         return self
 
-    def from_mnemonic(self, mnemonic, passphrase=str()):
-
-        if not check_mnemonic(mnemonic):
-            raise ValueError("Invalid 12 word mnemonic!")
+    def from_mnemonic(self, mnemonic, passphrase=None):
 
         self._mnemonic = mnemonic
-        self._seed = Mnemonic.to_seed(self._mnemonic, passphrase)
+        self._passphrase = str(passphrase) if passphrase else str()
+        self._seed = Mnemonic.to_seed(self._mnemonic, self._passphrase)
 
         i = hmac.new(b"Bitcoin seed", get_bytes(
             self._seed), hashlib.sha512).digest()
@@ -89,7 +92,7 @@ class Wallet:
 
     def from_seed(self, seed):
 
-        self._seed = seed
+        self._seed = unhexlify(seed)
         i = hmac.new(b"Bitcoin seed", get_bytes(seed), hashlib.sha512).digest()
         il, ir = i[:32], i[32:]
 
@@ -131,7 +134,7 @@ class Wallet:
         return self
 
     def from_private_key(self, private_key):
-        self.secret, self.chain,  self._path = unhexlify(private_key), None, None
+        self.secret, self._path = unhexlify(private_key), None
         self.key = ecdsa.SigningKey.from_string(self.secret, curve=SECP256k1)
         self.verified_key = self.key.get_verifying_key()
         return self
@@ -184,20 +187,30 @@ class Wallet:
             ck = b"\2" + padx
         return hexlify(ck).decode()
 
+    def entropy(self):
+        if self._entropy:
+            return str(self._entropy)
+        return None
+
     def mnemonic(self):
-        if self._mnemonic is None:
-            return str("Unknown")
-        return str(self._mnemonic)
+        if self._mnemonic:
+            return str(self._mnemonic)
+        return None
+
+    def passphrase(self):
+        if self._passphrase:
+            return str(self._passphrase)
+        return None
 
     def seed(self):
-        if self._seed is None:
-            return str("Unknown")
-        return hexlify(self._seed).decode()
+        if self._seed:
+            return hexlify(self._seed).decode()
+        return None
 
     def path(self):
-        if self._path is None:
-            return str("Unknown")
-        return str(self._path)
+        if self._path:
+            return str(self._path)
+        return None
 
     def uncompressed(self, private_key=None):
         if private_key:
@@ -208,9 +221,9 @@ class Wallet:
         return hexlify(self.verified_key.to_string()).decode()
 
     def chain_code(self):
-        if self.chain is None:
-            return str("Unknown")
-        return self.chain.hex()
+        if self.chain:
+            return self.chain.hex()
+        return None
 
     def identifier(self, private_key=None):
         if private_key is None:
@@ -263,24 +276,26 @@ class Wallet:
             else:
                 return raw.hex()
         except TypeError:
-            return str("Unknown")
+            return None
 
     def dumps(self):
-        return {
-            "mnemonic": self.mnemonic(),
-            "seed": self.seed(),
-            "private_key": self.private_key(),
-            "public_key": self.public_key(),
-            "uncompressed": self.uncompressed(),
-            "wif": self.wallet_import_format(),
-            "finger_print": self.finger_print(),
-            "chain_code": self.chain_code(),
-            "path": self.path(),
-            "address": self.address(),
-            "serialized": {
-                "private_key_hex": self.extended_key(private_key=True, encoded=False),
-                "public_key_hex": self.extended_key(private_key=False, encoded=False),
-                "private_key_base58": self.extended_key(private_key=True, encoded=True),
-                "public_key_base58": self.extended_key(private_key=False, encoded=True),
-            }
-        }
+        return dict(
+            entropy=self.entropy(),
+            mnemonic=self.mnemonic(),
+            passphrase=self.passphrase(),
+            seed=self.seed(),
+            private_key=self.private_key(),
+            public_key=self.public_key(),
+            uncompressed=self.uncompressed(),
+            wif=self.wallet_import_format(),
+            finger_print=self.finger_print(),
+            chain_code=self.chain_code(),
+            path=self.path(),
+            address=self.address(),
+            serialized=dict(
+                private_key_hex=self.extended_key(private_key=True, encoded=False),
+                public_key_hex=self.extended_key(private_key=False, encoded=False),
+                private_key_base58=self.extended_key(private_key=True, encoded=True),
+                public_key_base58=self.extended_key(private_key=False, encoded=True),
+            )
+        )
