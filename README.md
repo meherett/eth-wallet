@@ -19,6 +19,8 @@ $ pip install -e . -r requirements.txt
 
 ### Quick Usage
 ```python
+#!/usr/bin/env python3
+
 from eth_wallet import Wallet
 from eth_wallet.utils import generate_entropy
 
@@ -43,13 +45,15 @@ wallet.from_path("m/44'/60'/0'/0/0'")
 print(json.dumps(wallet.dumps(), indent=4))
 ```
 
-`OUTPUT`
-    
+
+<details>
+<summary>Output</summary> 
+
 ```json5
 {
     "entropy": "8d7454bb99e8e68de6adfc5519cbee64",
     "mnemonic": "occasione pizzico coltivato cremoso odorare epilogo patacca salone fonia sfuso vispo selettivo",
-    "language": "italian"
+    "language": "italian",
     "passphrase": null,
     "seed": "a0f734f68f800f1f43719473fbdcdb64b83a3d180add1d6f819ccbf5abbcb852c791d7e8249a62e1bbda60322de7ce0d0f3d5649e368431d058bbe6879ad2cd6",
     "private_key": "6fc58f27cec4b943e8a1f53bf7d54ecb0a22bd01c21e7d383870e99531b2ba24",
@@ -68,6 +72,7 @@ print(json.dumps(wallet.dumps(), indent=4))
     }
 }
 ```
+</details>
 
 [Click this to see more examples](https://github.com/meherett/eth-wallet/blob/master/examples).
 
