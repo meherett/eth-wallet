@@ -2,6 +2,8 @@
 
 from eth_wallet.wallet import Wallet
 
+import pytest
+
 
 MNEMONIC = "indicate warm sock mistake code spot acid ribbon sing over taxi toast"
 PASSPHRASE = None
@@ -77,3 +79,6 @@ def test_from_mnemonic():
             "public_key_base58": "xpub6HDCDeTyAyxwxHt9Ft9iV1XMjLVP8M6aPArC4WJttgHRqbarJXp36uUcQHUG9fZxDytHvmjop517"
                                  "kM3coBDPE1WMNm1XnRSYbKb117iqsNg"}
     }
+
+    with pytest.raises(ValueError, match=r".*12 word mnemonic.*"):
+        wallet.from_mnemonic(mnemonic=MNEMONIC, passphrase=PASSPHRASE, language="chinese_traditional")

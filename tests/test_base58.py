@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from eth_wallet.libs.base58 import check_encode, check_decode
+from eth_wallet.libs.base58 import check_encode, check_decode, __string_to_int
 
 from binascii import hexlify, unhexlify
 
@@ -22,3 +22,6 @@ def test_base58():
     assert hexlify(check_decode(enc=ENCODED_RAW)).decode() == \
         "0488b21e05d5bc481680000000b5b40efbdef2e0a2e8ee6fa9d371f951f93e3b1e3c1b50fb31f9ea36cfc7c88100b9d3" \
         "f312b38951361597219c8979e177d99349fd0213bac55508c8469d02064f"
+
+    with pytest.raises(TypeError, match="string argument without an encoding"):
+        assert __string_to_int(str("meherett"))
