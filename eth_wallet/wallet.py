@@ -16,16 +16,17 @@ import hashlib
 from eth_wallet.libs.base58 import checksum_encode, check_encode
 from eth_wallet.utils import get_bytes, check_mnemonic
 
-MiN_ENTROPY_LEN = 128
+MIN_ENTROPY_LEN = 128
 BIP32KEY_HARDEN = 0x80000000
 CURVE_GEN = ecdsa.ecdsa.generator_secp256k1
 CURVE_ORDER = CURVE_GEN.order()
-FiELD_ORDER = SECP256k1.curve.p()
+FIELD_ORDER = SECP256k1.curve.p()
 INFINITY = ecdsa.ellipticcurve.INFINITY
-EX_MAIN_PRIVATE = [
+# extended
+EXTEND_MAIN_PRIVATE = [
     codecs.decode("0488ade4", "hex")
 ]
-EX_MAIN_PUBLiC = [
+EXTEND_MAIN_PUBLIC = [
     codecs.decode("0488b21e", "hex"),
     codecs.decode("049d7cb2", "hex")
 ]
@@ -240,7 +241,8 @@ class Wallet:
         return check_encode(raw)
 
     def extended_key(self, private_key=True, encoded=True):
-        version = EX_MAIN_PRIVATE[0] if private_key else EX_MAIN_PUBLiC[0]
+        version = EXTEND_MAIN_PRIVATE[0] \
+            if private_key else EXTEND_MAIN_PUBLIC[0]
         depth = bytes(bytearray([self.depth]))
         parent_fingerprint = self.parent_fingerprint
         child = struct.pack(">L", self.index)
