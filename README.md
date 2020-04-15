@@ -39,15 +39,20 @@ wallet = Wallet()
 wallet.from_entropy(entropy=ENTROPY, passphrase=PASSPHRASE, language=LANGUAGE)
 
 # Derivation from path
-wallet.from_path("m/44'/60'/0'/0/0'")
+# wallet.from_path("m/44'/60'/0'/0/0'")
+# Or derivation from index
+wallet.from_index(44, harden=True)
+wallet.from_index(60, harden=True)
+wallet.from_index(0, harden=True)
+wallet.from_index(0)
+wallet.from_index(0, harden=True)
 
 # Print all wallet information's
 print(json.dumps(wallet.dumps(), indent=4))
 ```
 
-
 <details>
-<summary>Output</summary> 
+  <summary>Output</summary><br/>
 
 ```json5
 {
@@ -87,4 +92,4 @@ Or use `tox` to run the complete suite against the full set of build targets, or
 tests against a specific version of Python.
 
 ### License
-Distributed under the [GPL-3.0](https://github.com/meherett/eth-wallet/LICENSE) license. See ``LICENSE`` for more information.
+Distributed under the [GPL-3.0](https://github.com/meherett/eth-wallet/blob/master/LICENSE) license. See ``LICENSE`` for more information.
