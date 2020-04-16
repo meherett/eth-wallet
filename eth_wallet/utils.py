@@ -44,3 +44,16 @@ def check_mnemonic(mnemonic, language=None):
             return Mnemonic(language=language).check(mnemonic=mnemonic)
     except:
         return False
+
+
+def get_mnemonic_language(mnemonic):
+    if not check_mnemonic(mnemonic=mnemonic):
+        raise ValueError("Invalid 12 word mnemonic.")
+
+    language = None
+    for _language in ["english", "french", "italian",
+                      "chinese_simplified", "chinese_traditional", "japanese", "korean", "spanish"]:
+        if Mnemonic(language=_language).check(mnemonic=mnemonic) is True:
+            language = _language
+            break
+    return language
