@@ -7,8 +7,8 @@ except ModuleNotFoundError:
     modules = list()
 
 
-# Author Information's
-__version__ = "0.2.4"
+# Information's
+__version__ = "0.2.5"
 __license__ = "GPL-3.0"
 __author__ = "Meheret Tesfaye"
 __email__ = "meherett@zoho.com"
