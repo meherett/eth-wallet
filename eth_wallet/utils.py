@@ -30,8 +30,17 @@ def generate_entropy(strength=128):
     return hexlify(os.urandom(strength // 8)).decode()
 
 
-def check_mnemonic(mnemonic, language):
+def check_mnemonic(mnemonic, language=None):
     try:
-        return Mnemonic(language=language).check(mnemonic)
+        if language is None:
+            for _language in ["english", "french", "italian",
+                              "chinese_simplified", "chinese_traditional", "japanese", "korean", "spanish"]:
+                valid = False
+                if Mnemonic(language=_language).check(mnemonic=mnemonic) is True:
+                    valid = True
+                    break
+            return valid
+        else:
+            return Mnemonic(language=language).check(mnemonic=mnemonic)
     except:
         return False
