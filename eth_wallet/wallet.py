@@ -14,7 +14,7 @@ import codecs
 import hashlib
 
 from eth_wallet.libs.base58 import checksum_encode, check_encode
-from eth_wallet.utils import get_bytes, check_mnemonic
+from eth_wallet.utils import get_bytes, check_mnemonic, get_mnemonic_language
 
 MIN_ENTROPY_LEN = 128
 BIP32KEY_HARDEN = 0x80000000
@@ -46,12 +46,17 @@ class Wallet:
     def from_entropy(self, entropy,
                      passphrase=None, language="english"):
 
+        if language not in ["english", "french", "italian", "japanese",
+                            "chinese_simplified", "chinese_traditional", "korean", "spanish"]:
+            raise ValueError("Invalid language, use only this options english, french, "
+                             "italian, spanish, chinese_simplified, chinese_traditional, japanese & korean.")
+
         self._entropy = entropy
         self._language = str(language)
         self._passphrase = str(passphrase) if passphrase else str()
-        self._mnemonic = Mnemonic(language=language) \
-            .to_mnemonic(unhexlify(self._entropy))
-        self._seed = Mnemonic.to_seed(self._mnemonic, self._passphrase)
+        self._mnemonic = Mnemonic(language=self._language) \
+            .to_mnemonic(data=unhexlify(self._entropy))
+        self._seed = Mnemonic.to_seed(mnemonic=self._mnemonic, passphrase=self._passphrase)
 
         i = hmac.new(b"Bitcoin seed", get_bytes(
             self._seed), hashlib.sha512).digest()
@@ -66,15 +71,21 @@ class Wallet:
         self.verified_key = self.key.get_verifying_key()
         return self
 
-    def from_mnemonic(self, mnemonic, passphrase=None, language="english"):
+    def from_mnemonic(self, mnemonic, passphrase=None, language=None):
+
+        if language and language not in ["english", "french", "italian", "japanese",
+                                         "chinese_simplified", "chinese_traditional", "korean", "spanish"]:
+            raise ValueError("Invalid language, use only this options english, french, "
+                             "italian, spanish, chinese_simplified, chinese_traditional, japanese & korean.")
 
         if not check_mnemonic(mnemonic=mnemonic, language=language):
-            raise ValueError("Invalid %s 12 word mnemonic seed." % language)
+            raise ValueError("Invalid 12 word mnemonic.")
 
         self._mnemonic = mnemonic
-        self._language = str(language)
+        self._language = str(language) if language \
+            else str(get_mnemonic_language(mnemonic=self._mnemonic))
         self._passphrase = str(passphrase) if passphrase else str()
-        self._seed = Mnemonic.to_seed(self._mnemonic, self._passphrase)
+        self._seed = Mnemonic.to_seed(mnemonic=self._mnemonic, passphrase=self._passphrase)
 
         i = hmac.new(b"Bitcoin seed", get_bytes(
             self._seed), hashlib.sha512).digest()
