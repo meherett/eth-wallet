@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from eth_wallet.utils import generate_mnemonic, generate_entropy, check_mnemonic, get_bytes
+from eth_wallet.utils import generate_mnemonic, generate_entropy, check_mnemonic, get_bytes, get_mnemonic_language
 
 import pytest
 
@@ -23,3 +23,6 @@ def test_base58():
 
     with pytest.raises(TypeError, match=r".*'bytes' or 'string'.*"):
         assert get_bytes(1234)
+
+    with pytest.raises(ValueError, match="Invalid 12 word mnemonic."):
+        assert get_mnemonic_language("1234 meheret tesfaye")

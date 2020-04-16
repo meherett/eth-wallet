@@ -82,3 +82,8 @@ def test_from_mnemonic():
 
     with pytest.raises(ValueError, match=r".*12 word mnemonic.*"):
         wallet.from_mnemonic(mnemonic=MNEMONIC, passphrase=PASSPHRASE, language="chinese_traditional")
+
+    assert wallet.from_mnemonic(mnemonic=MNEMONIC, passphrase=PASSPHRASE, language=None)
+
+    with pytest.raises(ValueError, match=r"Invalid language, .*"):
+        wallet.from_mnemonic(mnemonic=MNEMONIC, passphrase=PASSPHRASE, language="amharic")

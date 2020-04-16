@@ -2,6 +2,8 @@
 
 from eth_wallet.wallet import Wallet
 
+import pytest
+
 
 ENTROPY = "50f002376c81c96e430b48f1fe71df57"
 PASSPHRASE = "meherett"
@@ -73,3 +75,6 @@ def test_from_entropy():
                                  "FzyrooyRnExz5dUo1K8yma4UvxQefbQ"
         }
     }
+
+    with pytest.raises(ValueError, match=r"Invalid language, .*"):
+        wallet.from_entropy(entropy=ENTROPY, passphrase=PASSPHRASE, language=None)
