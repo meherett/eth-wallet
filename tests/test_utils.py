@@ -19,6 +19,9 @@ def test_base58():
 
     assert check_mnemonic(mnemonic=MNEMONIC, language="korean")
 
+    with pytest.raises(ValueError, match=r"Invalid language, .*"):
+        assert check_mnemonic(mnemonic=MNEMONIC, language="amharic")
+
     assert not check_mnemonic(mnemonic=12341234, language="english")
 
     with pytest.raises(TypeError, match=r".*'bytes' or 'string'.*"):
