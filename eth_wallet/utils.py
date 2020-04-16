@@ -31,6 +31,10 @@ def generate_entropy(strength=128):
 
 
 def check_mnemonic(mnemonic, language=None):
+    if language and language not in ["english", "french", "italian", "japanese",
+                                     "chinese_simplified", "chinese_traditional", "korean", "spanish"]:
+        raise ValueError("Invalid language, use only this options english, french, "
+                         "italian, spanish, chinese_simplified, chinese_traditional, japanese & korean.")
     try:
         if language is None:
             for _language in ["english", "french", "italian",
