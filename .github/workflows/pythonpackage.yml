@@ -1,6 +1,6 @@
 # This workflow will install eth-wallet dependencies, run tests and lint with a variety of Python versions
 
-name: build
+name: workflow
 
 on:
   push:
