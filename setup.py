@@ -2,7 +2,6 @@
 
 from setuptools import setup, find_packages
 
-import eth_wallet
 
 # README.md
 with open("README.md", "r") as readme:
@@ -14,13 +13,13 @@ with open("requirements.txt", "r") as _requirements:
 
 setup(
     name="eth-wallet",
-    version=eth_wallet.__version__,
+    version="0.2.6",
     description="The implementation of Hierarchical Deterministic (HD) wallets generator for Ethereum protocol.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    license=eth_wallet.__license__,
-    author=eth_wallet.__author__,
-    author_email=eth_wallet.__email__,
+    license="GPL-3.0",
+    author="Meheret Tesfaye",
+    author_email="meherett@zoho.com",
     url="https://github.com/meherett/eth-wallet",
     keywords=["ethereum-wallet", "eth", "wallet"],
     python_requires=">=3.6,<4",
@@ -33,10 +32,11 @@ setup(
         ]
     },
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8"
+        "Programming Language :: Python :: 3.8",
+        "Topic :: Software Development :: Libraries :: Python Modules"
     ]
 )
