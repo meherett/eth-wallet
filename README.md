@@ -71,9 +71,9 @@ print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
     "address": "0x89f64dFE79777217BD16a278EE675DaE9c089729",
     "serialized": {
         "private_key_hex": "0488ade405c7b5aff680000000c05e2d9fbbba549d39fb114a2501099912873c94c388d68b4623730e3c73b855006fc58f27cec4b943e8a1f53bf7d54ecb0a22bd01c21e7d383870e99531b2ba24",
-        "public_key_hex": "0488b21e05c7b5aff680000000c05e2d9fbbba549d39fb114a2501099912873c94c388d68b4623730e3c73b855006fc58f27cec4b943e8a1f53bf7d54ecb0a22bd01c21e7d383870e99531b2ba24",
+        "public_key_hex": "0488b21e05c7b5aff680000000c05e2d9fbbba549d39fb114a2501099912873c94c388d68b4623730e3c73b855024de8f3421dc1138c1d1ccd9bfe22d727d7639475eb852c54cc8b3fddd9c5e9e6",
         "private_key_base58": "xprvA3tptBgMHUbm7KFeMbPwWmj4DhyqfRHmsrUmBHvQsJgTi8RtiL8NZBVrHtpsmBxJXjzKybyGcidQuFJhjyU5YYF8wvm5gVTL6UcseQiKATz",
-        "public_key_base58": "xpub6GtBHhDF7rA4KoL7TcvwsufnmjpL4t1dF5QMygL2ReDSavm3FsSd6ypL95y9rN6twUSKt46CHUNsWgrVddxdJPqJTw5TXpGP2LW7QU7sHju"
+        "public_key_base58": "xpub6GtBHhDF7rA4KoL7TcvwsufnmjpL4t1dF5QMygL2ReDSavm3FsSd6ypL99bjFYvmCcJj9dN55ZJ3w13mBHmWCgsHnamm88QbyKPfxwuGjPy"
     }
 }
 ```
