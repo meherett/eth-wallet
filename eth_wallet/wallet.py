@@ -237,7 +237,7 @@ class Wallet:
         return hashlib.new("ripemd160", sha256(
             unhexlify(self.public_key(private_key))).digest()).digest()
 
-    def finger_print(self, private_key=None):
+    def finger_print(self):
         return hexlify(self.identifier(
             self.private_key())[:4]).decode()
 
@@ -259,7 +259,8 @@ class Wallet:
         child = struct.pack(">L", self.index)
         chain = self.chain
 
-        data = b"\x00" + unhexlify(self.private_key())
+        data = b"\x00" + unhexlify(self.private_key()) \
+            if private_key else unhexlify(self.public_key())
         try:
             raw = (version + depth +
                    parent_fingerprint + child + chain + data)
