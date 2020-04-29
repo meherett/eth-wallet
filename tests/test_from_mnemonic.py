@@ -44,14 +44,14 @@ def test_from_mnemonic():
                                                                    "21be255d4a6c8eaed0"
     assert wallet.extended_key(private_key=False, encoded=False) == "0488b21e05f450d7af8000000067a537696eecbfdd575" \
                                                                     "5734eee16dca622e62bb3c98f66db89cad93def287754" \
-                                                                    "00678d12447649cc9eeede87562069c2ff1524f31df02" \
-                                                                    "5f521be255d4a6c8eaed0"
+                                                                    "03df79315f83cfeaadbd88bfc0033367ebd2ca7e08df8" \
+                                                                    "074fc2415d78ed1a3e73f"
     assert wallet.extended_key(private_key=True, encoded=True) == "xprvA4Dqp8w5LcQejoog9rci7sadBJetitNj1wvbG7uHLLk" \
                                                                   "SxoFhkzVnZ7A8Z6Kz4VRMpFSJ2Kct9KFf8uVpuWiqU9vBrk" \
                                                                   "h9w6dVfThmF4RUxHV"
     assert wallet.extended_key(private_key=False, encoded=True) == "xpub6HDCDeTyAyxwxHt9Ft9iV1XMjLVP8M6aPArC4WJttg" \
-                                                                   "HRqbarJXp36uUcQHUG9fZxDytHvmjop517kM3coBDPE1WM" \
-                                                                   "Nm1XnRSYbKb117iqsNg"
+                                                                   "HRqbarJXp36uUcQQDJwBK3GEhKy7cbV1Fs4UoRDRpbhTFR" \
+                                                                   "ZmPJ3coUuenN2TARncR"
 
     assert wallet.dumps() == {
         "entropy": None,
@@ -73,11 +73,12 @@ def test_from_mnemonic():
             "private_key_hex": "0488ade405f450d7af8000000067a537696eecbfdd5755734eee16dca622e62bb3c98f66db89cad93d"
                                "ef28775400678d12447649cc9eeede87562069c2ff1524f31df025f521be255d4a6c8eaed0",
             "public_key_hex": "0488b21e05f450d7af8000000067a537696eecbfdd5755734eee16dca622e62bb3c98f66db89cad93de"
-                              "f28775400678d12447649cc9eeede87562069c2ff1524f31df025f521be255d4a6c8eaed0",
+                              "f28775403df79315f83cfeaadbd88bfc0033367ebd2ca7e08df8074fc2415d78ed1a3e73f",
             "private_key_base58": "xprvA4Dqp8w5LcQejoog9rci7sadBJetitNj1wvbG7uHLLkSxoFhkzVnZ7A8Z6Kz4VRMpFSJ2Kct9KF"
                                   "f8uVpuWiqU9vBrkh9w6dVfThmF4RUxHV",
-            "public_key_base58": "xpub6HDCDeTyAyxwxHt9Ft9iV1XMjLVP8M6aPArC4WJttgHRqbarJXp36uUcQHUG9fZxDytHvmjop517"
-                                 "kM3coBDPE1WMNm1XnRSYbKb117iqsNg"}
+            "public_key_base58": "xpub6HDCDeTyAyxwxHt9Ft9iV1XMjLVP8M6aPArC4WJttgHRqbarJXp36uUcQQDJwBK3GEhKy7cbV1Fs"
+                                 "4UoRDRpbhTFRZmPJ3coUuenN2TARncR"
+        }
     }
 
     with pytest.raises(ValueError, match=r".*12 word mnemonic.*"):

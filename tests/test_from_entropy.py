@@ -39,14 +39,13 @@ def test_from_entropy():
         "0488ade40589afb94b80000000d7b70a1271342a03662b93112c388662b7e96714913c358e0dd3db57702259ef00656905e908b73" \
         "49a8a894dda3fe1d1792a5d3484a29175e318caa8bd8dbfb10e"
     assert wallet.extended_key(private_key=False, encoded=False) == \
-        "0488b21e0589afb94b80000000d7b70a1271342a03662b93112c388662b7e96714913c358e0dd3db57702259ef00656905e908b73" \
-        "49a8a894dda3fe1d1792a5d3484a29175e318caa8bd8dbfb10e"
+        "0488b21e0589afb94b80000000d7b70a1271342a03662b93112c388662b7e96714913c358e0dd3db57702259ef03d9ce6ac4d32b2" \
+        "b711016d4eddf3c28c2169e2f5a393a59569f9232ce21ec2fdf"
     assert wallet.extended_key(private_key=True, encoded=True) == \
         "xprvA3SPJ3k2vNjT7Fa3V6dg8vEieXud4ARAhLwFd4GM6i4TxsjADB4wrm2AzhcYjc5nSEkXB9EX4kuGeZS4v9Ut2PNpZdAR9zKvqiBFA" \
         "sqGrqv"
     assert wallet.extended_key(private_key=False, encoded=True) == \
-        "xpub6GRjhZGvkkHkKjeWb8AgW4BTCZk7Td924ZrrRSfxf3bSqg4JkiPCQZLeqtkppnENqyCX5bMSjWejFzyrooyRnExz5dUo1K8yma4Uv" \
-        "xQefbQ"
+        "xpub6GRjhZGvkkHkKjeWb8AgW4BTCZk7Td924ZrrRSfxf3bSqg4JkiPCQZLer1UKXzncTRrVvy5Lpc9SQNjJPqjoiMLRjqzPnYiAnbXx212kVLC"
 
     assert wallet.dumps() == {
         "entropy": "50f002376c81c96e430b48f1fe71df57",
@@ -68,11 +67,11 @@ def test_from_entropy():
             "private_key_hex": "0488ade40589afb94b80000000d7b70a1271342a03662b93112c388662b7e96714913c358e0dd3db57"
                                "702259ef00656905e908b7349a8a894dda3fe1d1792a5d3484a29175e318caa8bd8dbfb10e",
             "public_key_hex": "0488b21e0589afb94b80000000d7b70a1271342a03662b93112c388662b7e96714913c358e0dd3db577"
-                              "02259ef00656905e908b7349a8a894dda3fe1d1792a5d3484a29175e318caa8bd8dbfb10e",
+                              "02259ef03d9ce6ac4d32b2b711016d4eddf3c28c2169e2f5a393a59569f9232ce21ec2fdf",
             "private_key_base58": "xprvA3SPJ3k2vNjT7Fa3V6dg8vEieXud4ARAhLwFd4GM6i4TxsjADB4wrm2AzhcYjc5nSEkXB9EX4ku"
                                   "GeZS4v9Ut2PNpZdAR9zKvqiBFAsqGrqv",
-            "public_key_base58": "xpub6GRjhZGvkkHkKjeWb8AgW4BTCZk7Td924ZrrRSfxf3bSqg4JkiPCQZLeqtkppnENqyCX5bMSjWej"
-                                 "FzyrooyRnExz5dUo1K8yma4UvxQefbQ"
+            "public_key_base58": "xpub6GRjhZGvkkHkKjeWb8AgW4BTCZk7Td924ZrrRSfxf3bSqg4JkiPCQZLer1UKXzncTRrVvy5Lpc9S"
+                                 "QNjJPqjoiMLRjqzPnYiAnbXx212kVLC"
         }
     }
 
