@@ -13,7 +13,7 @@ wallet = Wallet()
 wallet.from_private_key(private_key=PRIVATE_KEY)
 
 # Print all wallet information's
-# print(json.dumps(wallet.dumps(), indent=4))
+# print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
 
 # Get Private Key
 print("Private Key:", wallet.private_key())
