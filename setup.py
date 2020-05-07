@@ -13,7 +13,7 @@ with open("requirements.txt", "r") as _requirements:
 
 setup(
     name="eth-wallet",
-    version="0.2.7",
+    version="0.3.0",
     description="The implementation of Hierarchical Deterministic (HD) wallets generator for Ethereum protocol.",
     long_description=long_description,
     long_description_content_type="text/markdown",
