@@ -9,7 +9,7 @@ import json
 ENTROPY = "50f002376c81c96e430b48f1fe71df57"
 # Or generate entropy
 # ENTROPY = generate_entropy(strength=128)
-# Secret passphrase
+# Secret passphrase/password
 PASSPHRASE = None  # str("meherett")
 # Choose language english, french, italian, spanish, chinese_simplified, chinese_traditional, japanese & korean
 LANGUAGE = "korean"  # default is english
