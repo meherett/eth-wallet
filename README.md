@@ -7,6 +7,7 @@
 The implementation of Hierarchical Deterministic (HD) wallets generator for Ethereum protocol.
 
 ### Installation
+
 ```
 $ pip install eth-wallet
 ```
@@ -18,6 +19,7 @@ $ pip install -e . -r requirements.txt
 ```
 
 ### Quick Usage
+
 ```python
 #!/usr/bin/env python3
 
@@ -56,24 +58,27 @@ print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
 
 ```json5
 {
-    "entropy": "8d7454bb99e8e68de6adfc5519cbee64",
-    "mnemonic": "occasione pizzico coltivato cremoso odorare epilogo patacca salone fonia sfuso vispo selettivo",
+    "entropy": "dd1bd1610ad21cc7378b33a2fb0780ba",
+    "mnemonic": "stizzoso succoso fuggente austria buca icona stufo impiego planare spedire svedese luppolo",
     "language": "italian",
     "passphrase": null,
-    "seed": "a0f734f68f800f1f43719473fbdcdb64b83a3d180add1d6f819ccbf5abbcb852c791d7e8249a62e1bbda60322de7ce0d0f3d5649e368431d058bbe6879ad2cd6",
-    "private_key": "6fc58f27cec4b943e8a1f53bf7d54ecb0a22bd01c21e7d383870e99531b2ba24",
-    "public_key": "024de8f3421dc1138c1d1ccd9bfe22d727d7639475eb852c54cc8b3fddd9c5e9e6",
-    "uncompressed": "4de8f3421dc1138c1d1ccd9bfe22d727d7639475eb852c54cc8b3fddd9c5e9e66c153cd99d81f9db5985e5ba0ba4ca49d51086c8c89a7fdbc568c394fcfdfb3e",
-    "wif": "KzxypdAu6Fyr4bu6KbBeWCARqSVsoUiQsi75LxwvHFU3Fq2QXeqy",
-    "finger_print": "bc7c2a20",
-    "chain_code": "c05e2d9fbbba549d39fb114a2501099912873c94c388d68b4623730e3c73b855",
+    "seed": "030cfa72163e50ab30b7b777a740cf9b81132db32dbe5586db300929d44883c600cfbba441e91b7acbf43d2efa743e6e28eef6af8da5313a4cc2efc702471697",
+    "root_private_key": "ca1b05291e99e4f8a4dbd1c694b983a5f37c90737481ac0357492a2d7fb6c4a62546aad67bc9e963d659c49114f64cdb56b9ff69800daa4c6add97665613b697",
+    "root_public_key": "64fb2d43d9b3cebe7833ef08b642e135642f67aced2afcb9bf2a2f2e0d089ddbca8f5daf77fa501bb5b046f1c2e1399b72a5fb53d10baa8701deee2200da81c0",
+    "uncompressed": "711c954c41932b8ee6743d3370e1457be654c2a3e9ad2fb73edb36c5ec40fa299a0b3cf5e44c985097dfcd0bd0051781262a6cb7997c5b8c5aed1b9be8765d05",
+    "compressed": "03711c954c41932b8ee6743d3370e1457be654c2a3e9ad2fb73edb36c5ec40fa29",
+    "chain_code": "bc93dd52faeed3c7f254dabb87f8d6f021f1ea7eaf2819769799cc473314f031",
+    "private_key": "7a5c1e516c339b88e3b37209cbaada31bc6dde3eef5590b6cab952be13722671",
+    "public_key": "03711c954c41932b8ee6743d3370e1457be654c2a3e9ad2fb73edb36c5ec40fa29",
+    "wif": "L1KZaDq2uRkYrX1f9aLLn5MCwrp5FNjyGAUkXz3detCet2PbfCmL",
+    "finger_print": "619eed36",
     "path": "m/44'/60'/0'/0/0'",
-    "address": "0x89f64dFE79777217BD16a278EE675DaE9c089729",
+    "address": "0x093e9Fc7e162B097bAea14a4a63B0F3D35530494",
     "serialized": {
-        "private_key_hex": "0488ade405c7b5aff680000000c05e2d9fbbba549d39fb114a2501099912873c94c388d68b4623730e3c73b855006fc58f27cec4b943e8a1f53bf7d54ecb0a22bd01c21e7d383870e99531b2ba24",
-        "public_key_hex": "0488b21e05c7b5aff680000000c05e2d9fbbba549d39fb114a2501099912873c94c388d68b4623730e3c73b855024de8f3421dc1138c1d1ccd9bfe22d727d7639475eb852c54cc8b3fddd9c5e9e6",
-        "private_key_base58": "xprvA3tptBgMHUbm7KFeMbPwWmj4DhyqfRHmsrUmBHvQsJgTi8RtiL8NZBVrHtpsmBxJXjzKybyGcidQuFJhjyU5YYF8wvm5gVTL6UcseQiKATz",
-        "public_key_base58": "xpub6GtBHhDF7rA4KoL7TcvwsufnmjpL4t1dF5QMygL2ReDSavm3FsSd6ypL99bjFYvmCcJj9dN55ZJ3w13mBHmWCgsHnamm88QbyKPfxwuGjPy"
+        "private_key_hex": "0488ade405afd9d7d180000000bc93dd52faeed3c7f254dabb87f8d6f021f1ea7eaf2819769799cc473314f031007a5c1e516c339b88e3b37209cbaada31bc6dde3eef5590b6cab952be13722671",
+        "public_key_hex": "0488b21e05afd9d7d180000000bc93dd52faeed3c7f254dabb87f8d6f021f1ea7eaf2819769799cc473314f03103711c954c41932b8ee6743d3370e1457be654c2a3e9ad2fb73edb36c5ec40fa29",
+        "private_key_base58": "xprvA3iex88bZnGj3xL5FLCGRxDER6zU7opAcpBmeaSghX3HW5fTwM1iGVenooA91TvwiWDaztbVQKGVJDQuaeoJyW7agqzJpoTyg7jYkokvTet",
+        "public_key_base58": "xpub6Gi1MdfVQ9q2GSQYMMjGo69xy8pxXGY1z37NSxrJFraGNszcUtKxpHyGf64aPrRhtRsumxod1ygu2xmSkSFby1VSaAohJseCsEss4mWutYi"
     }
 }
 ```
@@ -82,6 +87,7 @@ print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
 [Click this to see more examples](https://github.com/meherett/eth-wallet/blob/master/examples).
 
 ### Testing
+
 You can run the tests with:
 
 ```
@@ -92,4 +98,5 @@ Or use `tox` to run the complete suite against the full set of build targets, or
 tests against a specific version of Python.
 
 ### License
+
 Distributed under the [GPL-3.0](https://github.com/meherett/eth-wallet/blob/master/LICENSE) license. See ``LICENSE`` for more information.
