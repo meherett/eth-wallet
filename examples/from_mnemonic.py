@@ -11,7 +11,7 @@ MNEMONIC = "indicate warm sock mistake code spot acid ribbon sing over taxi toas
 # MNEMONIC = generate_mnemonic(language="korean", strength=128)
 # Secret passphrase
 PASSPHRASE = None  # str("meherett")
-# Choose language english, french, italian, spanish, chinese_simplified, chinese_traditional & korean
+# Choose language english, french, italian, spanish, chinese_simplified, chinese_traditional, japanese & korean
 LANGUAGE = "english"  # default is english
 
 # Checking 12 word mnemonic seed
