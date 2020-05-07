@@ -37,6 +37,7 @@ class Wallet:
     def __init__(self):
         # Initialize core
         self.parent_fingerprint = b"\0\0\0\0"
+        self._root_private_key, self._root_public_key = None, None
         self.secret, self.key, self.verified_key = None, None, None
         self.chain, self.depth, self.index = None, 0, 0
         # Wallet information's
@@ -60,6 +61,7 @@ class Wallet:
 
         i = hmac.new(b"Bitcoin seed", get_bytes(
             self._seed), hashlib.sha512).digest()
+        self._root_private_key = i
         il, ir = i[:32], i[32:]
 
         parse_il = int.from_bytes(il, "big")
@@ -69,6 +71,7 @@ class Wallet:
         self.secret, self.chain = il, ir
         self.key = ecdsa.SigningKey.from_string(self.secret, curve=SECP256k1)
         self.verified_key = self.key.get_verifying_key()
+        self._root_public_key = self.verified_key.to_string()
         return self
 
     def from_mnemonic(self, mnemonic, passphrase=None, language=None):
@@ -89,6 +92,7 @@ class Wallet:
 
         i = hmac.new(b"Bitcoin seed", get_bytes(
             self._seed), hashlib.sha512).digest()
+        self._root_private_key = i
         il, ir = i[:32], i[32:]
 
         parse_il = int.from_bytes(il, "big")
@@ -98,12 +102,15 @@ class Wallet:
         self.secret, self.chain = il, ir
         self.key = ecdsa.SigningKey.from_string(self.secret, curve=SECP256k1)
         self.verified_key = self.key.get_verifying_key()
+        self._root_public_key = self.verified_key.to_string()
         return self
 
     def from_seed(self, seed):
 
         self._seed = unhexlify(seed)
-        i = hmac.new(b"Bitcoin seed", get_bytes(seed), hashlib.sha512).digest()
+        i = hmac.new(b"Bitcoin seed", get_bytes(
+            seed), hashlib.sha512).digest()
+        self._root_private_key = i
         il, ir = i[:32], i[32:]
 
         parse_il = int.from_bytes(il, "big")
@@ -113,6 +120,7 @@ class Wallet:
         self.secret, self.chain = il, ir
         self.key = ecdsa.SigningKey.from_string(self.secret, curve=SECP256k1)
         self.verified_key = self.key.get_verifying_key()
+        self._root_public_key = self.verified_key.to_string()
         return self
 
     def hmac(self, data):
@@ -143,11 +151,26 @@ class Wallet:
         self.verified_key = self.key.get_verifying_key()
         return self
 
-    def from_private_key(self, private_key):
-        self.secret, self._path = unhexlify(private_key), None
+    def from_root_private_key(self, root_private_key):
+        self._root_private_key = unhexlify(root_private_key)
+        self.secret, self.chain = self._root_private_key[:32], self._root_private_key[32:]
         self.key = ecdsa.SigningKey.from_string(self.secret, curve=SECP256k1)
         self.verified_key = self.key.get_verifying_key()
+        self._root_public_key = self.verified_key.to_string()
         return self
+
+    def from_private_key(self, private_key):
+        self.secret, self._path = unhexlify(private_key), None
+        self.key = ecdsa.SigningKey.from_string(
+            self.secret, curve=SECP256k1)
+        self.verified_key = self.key.get_verifying_key()
+        return self
+
+    def root_private_key(self):
+        return hexlify(self._root_private_key).decode() if self._root_private_key else None
+
+    def root_public_key(self):
+        return hexlify(self._root_public_key).decode() if self._root_public_key else None
 
     def from_path(self, path):
         if str(path)[0:2] != "m/":
@@ -172,6 +195,18 @@ class Wallet:
             self._path = self._path + ("/%d" % index)
             return self.derive_private_key(index)
 
+    def uncompressed(self):
+        return hexlify(self.verified_key.to_string()).decode()
+
+    def compressed(self):
+        padx = (b"\0" * 32 + int_to_string(
+            self.verified_key.pubkey.point.x()))[-32:]
+        if self.verified_key.pubkey.point.y() & 1:
+            ck = b"\3" + padx
+        else:
+            ck = b"\2" + padx
+        return hexlify(ck).decode()
+
     def private_key(self):
         return hexlify(self.key.to_string()).decode()
 
@@ -187,51 +222,34 @@ class Wallet:
             else:
                 ck = b"\2" + padx
             return hexlify(ck).decode()
-        padx = (b"\0" * 32 + int_to_string(
-            self.verified_key.pubkey.point.x()))[-32:]
-        if self.verified_key.pubkey.point.y() & 1:
-            ck = b"\3" + padx
-        else:
-            ck = b"\2" + padx
-        return hexlify(ck).decode()
+        return self.compressed()
 
     def entropy(self):
-        if self._entropy:
-            return str(self._entropy)
-        return None
+        return str(self._entropy) \
+            if self._entropy else None
 
     def mnemonic(self):
-        if self._mnemonic:
-            return str(self._mnemonic)
-        return None
+        return str(self._mnemonic) \
+            if self._mnemonic else None
 
     def passphrase(self):
-        if self._passphrase:
-            return str(self._passphrase)
-        return None
+        return str(self._passphrase) \
+            if self._passphrase else None
 
     def language(self):
-        if self._language:
-            return str(self._language)
-        return None
+        return str(self._language) \
+            if self._language else None
 
     def seed(self):
-        if self._seed:
-            return hexlify(self._seed).decode()
-        return None
+        return hexlify(self._seed).decode() \
+            if self._seed else None
 
     def path(self):
-        if self._path:
-            return str(self._path)
-        return None
-
-    def uncompressed(self):
-        return hexlify(self.verified_key.to_string()).decode()
+        return self._path \
+            if not self._path == "m" else None
 
     def chain_code(self):
-        if self.chain:
-            return self.chain.hex()
-        return None
+        return hexlify(self.chain).decode() if self.chain else None
 
     def identifier(self, private_key):
         return hashlib.new("ripemd160", sha256(
@@ -278,12 +296,15 @@ class Wallet:
             language=self.language(),
             passphrase=self.passphrase(),
             seed=self.seed(),
+            root_private_key=self.root_private_key(),
+            root_public_key=self.root_public_key(),
+            uncompressed=self.uncompressed(),
+            compressed=self.compressed(),
+            chain_code=self.chain_code(),
             private_key=self.private_key(),
             public_key=self.public_key(),
-            uncompressed=self.uncompressed(),
             wif=self.wallet_import_format(),
             finger_print=self.finger_print(),
-            chain_code=self.chain_code(),
             path=self.path(),
             address=self.address(),
             serialized=dict(
