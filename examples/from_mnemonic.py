@@ -6,13 +6,13 @@ from eth_wallet.utils import generate_mnemonic, check_mnemonic
 import json
 
 # 12 word mnemonic seed
-MNEMONIC = "병아리 실컷 여인 축제 극히 저녁 경찰 설사 할인 해물 시각 자가용"
+MNEMONIC = "indicate warm sock mistake code spot acid ribbon sing over taxi toast"
 # Or generate mnemonic
 # MNEMONIC = generate_mnemonic(language="korean", strength=128)
 # Secret passphrase
 PASSPHRASE = None  # str("meherett")
 # Choose language english, french, italian, spanish, chinese_simplified, chinese_traditional & korean
-LANGUAGE = "korean"  # default is english
+LANGUAGE = "english"  # default is english
 
 # Checking 12 word mnemonic seed
 assert check_mnemonic(mnemonic=MNEMONIC, language=LANGUAGE), \
@@ -33,18 +33,22 @@ wallet.from_index(0)
 wallet.from_index(0, harden=True)
 
 # Print all wallet information's
-# print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
+print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
 
+print("Entropy:", wallet.entropy())
 print("Mnemonic:", wallet.mnemonic())
 print("Language:", wallet.language())
 print("Passphrase:", wallet.passphrase())
 print("Seed:", wallet.seed())
+print("Root Private Key:", wallet.root_private_key())
+print("Root Public Key:", wallet.root_public_key())
+print("Uncompressed:", wallet.uncompressed())
+print("Compressed:", wallet.compressed())
+print("Chain Code:", wallet.chain_code())
 print("Private Key:", wallet.private_key())
 print("Public Key:", wallet.public_key())
-print("Uncompressed:", wallet.uncompressed())
 print("Wallet Import Format:", wallet.wallet_import_format())
 print("Finger Print:", wallet.finger_print())
-print("Chain Code:", wallet.chain_code())
 print("Path:", wallet.path())
 print("Address:", wallet.address())
 

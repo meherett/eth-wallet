@@ -4,17 +4,17 @@ from eth_wallet import Wallet
 
 import json
 
-# Wallet seed
-SEED = "bd421c81fbbb1cea7910851857817ac18f1fce9b9577a3e732ad28ae8ba4e097b072c48e694e5053df5db8a86d5cbacbbfee02b42d" \
-       "12c554d06313a0dadacf6b"
+# Ethereum wallet root private key
+ROOT_PRIVATE_KEY = "d41f75ee8b3fd25bb696f1882f0d34a2a9b68dc20ba69b93a1e81b9413aac65100e8e6c" \
+                   "ad6815767e839b5b86a954c11662cbcae94e8add8cd837842fd222312"
 
 # Initialize wallet
 wallet = Wallet()
-# Get Ethereum wallet from seed
-wallet.from_seed(seed=SEED)
+# Get Ethereum wallet from root private key
+wallet.from_root_private_key(root_private_key=ROOT_PRIVATE_KEY)
 
 # Derivation from path
-# wallet.from_path("m/44'/60'/0'/0/0")
+# wallet.from_path("m/44'/60'/0'/0/0'")
 # Derivation from index
 wallet.from_index(44, harden=True)
 wallet.from_index(60, harden=True)
