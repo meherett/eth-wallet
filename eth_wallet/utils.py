@@ -30,7 +30,7 @@ def generate_entropy(strength=128):
     return hexlify(os.urandom(strength // 8)).decode()
 
 
-def check_mnemonic(mnemonic, language=None):
+def is_mnemonic(mnemonic, language=None):
     if language and language not in ["english", "french", "italian", "japanese",
                                      "chinese_simplified", "chinese_traditional", "korean", "spanish"]:
         raise ValueError("Invalid language, use only this options english, french, "
@@ -51,7 +51,7 @@ def check_mnemonic(mnemonic, language=None):
 
 
 def get_mnemonic_language(mnemonic):
-    if not check_mnemonic(mnemonic=mnemonic):
+    if not is_mnemonic(mnemonic=mnemonic):
         raise ValueError("Invalid 12 word mnemonic.")
 
     language = None
