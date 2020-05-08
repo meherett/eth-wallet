@@ -14,7 +14,7 @@ import codecs
 import hashlib
 
 from eth_wallet.libs.base58 import checksum_encode, check_encode
-from eth_wallet.utils import get_bytes, is_mnemonic, get_mnemonic_language
+from eth_wallet.utils import get_bytes, is_mnemonic, get_mnemonic_language, bad_seed_checker
 
 MIN_ENTROPY_LEN = 128
 BIP32KEY_HARDEN = 0x80000000
@@ -63,10 +63,7 @@ class Wallet:
             self._seed), hashlib.sha512).digest()
         self._root_private_key = i
         il, ir = i[:32], i[32:]
-
-        parse_il = int.from_bytes(il, "big")
-        if parse_il == 0 or parse_il >= SECP256k1.order:
-            raise ValueError("Bad seed, resulting in invalid key!")
+        bad_seed_checker(il)
 
         self.secret, self.chain = il, ir
         self.key = ecdsa.SigningKey.from_string(self.secret, curve=SECP256k1)
@@ -94,10 +91,7 @@ class Wallet:
             self._seed), hashlib.sha512).digest()
         self._root_private_key = i
         il, ir = i[:32], i[32:]
-
-        parse_il = int.from_bytes(il, "big")
-        if parse_il == 0 or parse_il >= SECP256k1.order:
-            raise ValueError("Bad seed, resulting in invalid key!")
+        bad_seed_checker(il)
 
         self.secret, self.chain = il, ir
         self.key = ecdsa.SigningKey.from_string(self.secret, curve=SECP256k1)
@@ -112,10 +106,7 @@ class Wallet:
             seed), hashlib.sha512).digest()
         self._root_private_key = i
         il, ir = i[:32], i[32:]
-
-        parse_il = int.from_bytes(il, "big")
-        if parse_il == 0 or parse_il >= SECP256k1.order:
-            raise ValueError("Bad seed, resulting in invalid key!")
+        bad_seed_checker(il)
 
         self.secret, self.chain = il, ir
         self.key = ecdsa.SigningKey.from_string(self.secret, curve=SECP256k1)
