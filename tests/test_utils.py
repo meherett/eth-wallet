@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from eth_wallet.utils import generate_mnemonic, generate_entropy, check_mnemonic, get_bytes, get_mnemonic_language
+from eth_wallet.utils import generate_mnemonic, generate_entropy, is_mnemonic, get_bytes, get_mnemonic_language
 
 import pytest
 
@@ -17,12 +17,12 @@ def test_base58():
     with pytest.raises(ValueError, match=r".*[128, 160, 192, 224, 256].*"):
         assert len(generate_entropy(strength=129).split(" ")) == 12
 
-    assert check_mnemonic(mnemonic=MNEMONIC, language="korean")
+    assert is_mnemonic(mnemonic=MNEMONIC, language="korean")
 
     with pytest.raises(ValueError, match=r"Invalid language, .*"):
-        assert check_mnemonic(mnemonic=MNEMONIC, language="amharic")
+        assert is_mnemonic(mnemonic=MNEMONIC, language="amharic")
 
-    assert not check_mnemonic(mnemonic=12341234, language="english")
+    assert not is_mnemonic(mnemonic=12341234, language="english")
 
     with pytest.raises(TypeError, match=r".*'bytes' or 'string'.*"):
         assert get_bytes(1234)

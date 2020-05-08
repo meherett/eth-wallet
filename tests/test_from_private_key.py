@@ -57,3 +57,6 @@ def test_from_private_key():
             "public_key_base58": None
         }
     }
+
+    assert wallet.clean_derivation()
+    assert wallet.path() is None
