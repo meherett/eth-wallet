@@ -5,8 +5,8 @@ from eth_wallet import Wallet
 import json
 
 # Wallet seed
-SEED = "bd421c81fbbb1cea7910851857817ac18f1fce9b9577a3e732ad28ae8ba4e097b072c48e694e5053df5db8a86d5cbacbbfee02b42d" \
-       "12c554d06313a0dadacf6b"
+SEED = "b3337a2fe409afbb257b504e4c09d36b57c32c452b71a0ed413298a5172f727a06bf6605488723bc545a4" \
+       "bd51f5cd29a3e8bd1433bd1d26e6bf866ff53d1493f"
 
 # Initialize wallet
 wallet = Wallet()
@@ -23,7 +23,7 @@ wallet.from_index(0)
 wallet.from_index(0, harden=True)
 
 # Print all wallet information's
-print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
+# print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
 
 print("Entropy:", wallet.entropy())
 print("Mnemonic:", wallet.mnemonic())

@@ -23,7 +23,7 @@ wallet.from_index(0)
 wallet.from_index(0, harden=True)
 
 # Print all wallet information's
-print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
+# print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
 
 print("Entropy:", wallet.entropy())
 print("Mnemonic:", wallet.mnemonic())

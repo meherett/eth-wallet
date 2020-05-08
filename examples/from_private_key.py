@@ -5,7 +5,7 @@ from eth_wallet import Wallet
 import json
 
 # Ethereum wallet private key
-PRIVATE_KEY = "656905e908b7349a8a894dda3fe1d1792a5d3484a29175e318caa8bd8dbfb10e"
+PRIVATE_KEY = "b9d3f312b38951361597219c8979e177d99349fd0213bac55508c8469d02064f"
 
 # Initialize wallet
 wallet = Wallet()
@@ -13,7 +13,7 @@ wallet = Wallet()
 wallet.from_private_key(private_key=PRIVATE_KEY)
 
 # Print all wallet information's
-print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
+# print(json.dumps(wallet.dumps(), indent=4, ensure_ascii=False))
 
 print("Entropy:", wallet.entropy())
 print("Mnemonic:", wallet.mnemonic())
