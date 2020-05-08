@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from mnemonic import Mnemonic
+from ecdsa.curves import SECP256k1
 from binascii import hexlify
 
 import os
@@ -14,6 +15,12 @@ def get_bytes(string):
     else:
         raise TypeError("agreement must be either 'bytes' or 'string'!")
     return byte
+
+
+def bad_seed_checker(il):
+    parse_il = int.from_bytes(il, "big")
+    if parse_il == 0 or parse_il >= SECP256k1.order:
+        raise ValueError("Bad seed, resulting in invalid key!")
 
 
 def generate_mnemonic(language="english", strength=128):
