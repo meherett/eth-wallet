@@ -18,7 +18,7 @@ wallet.from_entropy(entropy=ENTROPY, passphrase=PASSPHRASE, language=LANGUAGE)
 print("Mnemonic:", wallet.mnemonic())
 print("Base HD Path:  m/44'/60'/0'/0/{account_index}", "\n")
 
-# Print account index, address and private key wallet information's
+# Get wallet information's from account index
 for account_index in range(10):
     # Derivation from path
     # wallet.from_path(f"m/44'/60'/0'/0/{account_index}")
@@ -28,7 +28,7 @@ for account_index in range(10):
     wallet.from_index(0, harden=True)
     wallet.from_index(0)
     wallet.from_index(account_index)
-    # Print account_index, address and private_key like ganache-cli
+    # Print account_index, address and private_key like ganache-cli/testrpc
     print(f"({account_index}) {wallet.path()} {wallet.address()} 0x{wallet.private_key()}")
-    # Clear derivation
-    wallet.clear_derivation()
+    # Clean derivation
+    wallet.clean_derivation()
