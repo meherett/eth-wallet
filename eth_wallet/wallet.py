@@ -163,7 +163,7 @@ class Wallet:
     def root_public_key(self):
         return hexlify(self._root_public_key).decode() if self._root_public_key else None
 
-    def clear_derivation(self):
+    def clean_derivation(self):
         if self._root_private_key:
             self._path = "m"
             self.secret, self.chain = self._root_private_key[:32], self._root_private_key[32:]
