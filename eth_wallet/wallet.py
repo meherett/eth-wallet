@@ -14,7 +14,7 @@ import codecs
 import hashlib
 
 from eth_wallet.libs.base58 import checksum_encode, check_encode
-from eth_wallet.utils import get_bytes, check_mnemonic, get_mnemonic_language
+from eth_wallet.utils import get_bytes, is_mnemonic, get_mnemonic_language
 
 MIN_ENTROPY_LEN = 128
 BIP32KEY_HARDEN = 0x80000000
@@ -81,7 +81,7 @@ class Wallet:
             raise ValueError("Invalid language, use only this options english, french, "
                              "italian, spanish, chinese_simplified, chinese_traditional, japanese & korean.")
 
-        if not check_mnemonic(mnemonic=mnemonic, language=language):
+        if not is_mnemonic(mnemonic=mnemonic, language=language):
             raise ValueError("Invalid 12 word mnemonic.")
 
         self._mnemonic = mnemonic
@@ -172,16 +172,25 @@ class Wallet:
     def root_public_key(self):
         return hexlify(self._root_public_key).decode() if self._root_public_key else None
 
+    def clear_derivation(self):
+        if self._root_private_key:
+            self._path = "m"
+            self.secret, self.chain = self._root_private_key[:32], self._root_private_key[32:]
+            self.key = ecdsa.SigningKey.from_string(self.secret, curve=SECP256k1)
+            self.verified_key = self.key.get_verifying_key()
+        return self
+
     def from_path(self, path):
         if str(path)[0:2] != "m/":
             raise ValueError("Bad path, please insert like this type of path \"m/0'/0\"! ")
 
-        self._path = path
-        for index in self._path.lstrip("m/").split("/"):
+        for index in path.lstrip("m/").split("/"):
             if "'" in index:
                 self.derive_private_key(int(index[:-1]) + BIP32KEY_HARDEN)
+                self._path += str("/" + index)
             else:
                 self.derive_private_key(int(index))
+                self._path += str("/" + index)
         return self
 
     def from_index(self, index, harden=False):
@@ -189,10 +198,10 @@ class Wallet:
             raise ValueError("Bad index, Please import only integer number!")
 
         if harden:
-            self._path = self._path + ("/%d'" % index)
+            self._path += ("/%d'" % index)
             self.derive_private_key(index + BIP32KEY_HARDEN)
         else:
-            self._path = self._path + ("/%d" % index)
+            self._path += ("/%d" % index)
             return self.derive_private_key(index)
 
     def uncompressed(self):
