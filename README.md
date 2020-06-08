@@ -18,7 +18,9 @@ Or clone it locally, and run:
 $ pip install -e .[tests] -r requirements.txt
 ```
 
-### Quick Usage
+### Quick Start
+
+ethereum wallet
 
 ```python
 #!/usr/bin/env python3
