@@ -4,21 +4,25 @@
 [![PyPI Version](https://img.shields.io/pypi/v/eth-wallet.svg?color=blue)](https://pypi.org/project/eth-wallet)
 [![Coverage Status](https://coveralls.io/repos/github/meherett/eth-wallet/badge.svg?branch=master)](https://coveralls.io/github/meherett/eth-wallet?branch=master)
 
-The implementation of Hierarchical Deterministic (HD) wallets generator for Ethereum protocol.
+The implementation of Hierarchical Deterministic (HD) wallets generator for Ethereum blockchain.
 
-### Installation
+## Installation
 
 ```
 $ pip install eth-wallet
 ```
 
-Or clone it locally, and run:
+For the versions available, see the [tags on this repository](https://github.com/meherett/eth-wallet/tags).
+
+## Development
+
+We welcome pull requests. To get started, just fork this repository, clone it locally, and run:
 
 ```
 $ pip install -e .[tests] -r requirements.txt
 ```
 
-### Quick Start
+## Quick Start
 
 ethereum wallet
 
@@ -134,7 +138,7 @@ Base HD Path:  m/44'/60'/0'/0/{account_index}
 
 [Click this to see more examples](https://github.com/meherett/eth-wallet/blob/master/examples).
 
-### Testing
+## Testing
 
 You can run the tests with:
 
@@ -145,6 +149,6 @@ $ pytest
 Or use `tox` to run the complete suite against the full set of build targets, or pytest to run specific 
 tests against a specific version of Python.
 
-### License
+## License
 
 Distributed under the [GPL-3.0](https://github.com/meherett/eth-wallet/blob/master/LICENSE) license. See ``LICENSE`` for more information.
