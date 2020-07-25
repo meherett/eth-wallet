@@ -39,7 +39,7 @@ ENTROPY = generate_entropy(strength=128)  # Default is 128
 # Secret password/passphrase
 PASSPHRASE = None  # str("meherett")
 # Choose language english, chinese_simplified, chinese_traditional, french, italian, japanese, korean or spanish
-LANGUAGE = "italian"  # default is english
+LANGUAGE = "italian"  # Default is english
 
 # Initialize wallet
 wallet = Wallet()
