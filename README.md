@@ -34,11 +34,11 @@ from eth_wallet.utils import generate_entropy
 
 import json
 
-# 128 strength entropy
-ENTROPY = generate_entropy(strength=128)
-# Secret passphrase
+# Choose strength 128, 160, 192, 224 or 256
+ENTROPY = generate_entropy(strength=128)  # Default is 128
+# Secret password/passphrase
 PASSPHRASE = None  # str("meherett")
-# Choose language english, french, italian, spanish, chinese_simplified, chinese_traditional, japanese & korean
+# Choose language english, chinese_simplified, chinese_traditional, french, italian, japanese, korean or spanish
 LANGUAGE = "italian"  # default is english
 
 # Initialize wallet
